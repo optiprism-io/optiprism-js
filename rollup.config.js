@@ -29,7 +29,7 @@ const umd = [
         input: 'src/index.ts',
         output: {
             name: 'optiprism',
-            file: 'lib/scripts/optiprism-min.umd.js',
+            file: 'public/lib/scripts/optiprism-min.umd.js',
             format: 'umd',
         },
         plugins: [
@@ -49,30 +49,30 @@ const umd = [
     },
 ];
 
-// const iife = [
-//   {
-//     input: 'src/snippet-index.ts',
-//     output: {
-//       name: 'optiprism',
-//       file: 'lib/scripts/optiprism-min.js',
-//       format: 'iife',
-//     },
-//     plugins: [
-//       typescript({
-//         module: 'es6',
-//         noEmit: false,
-//         outDir: 'lib/script',
-//         rootDir: 'src',
-//       }),
-//       resolve({
-//         browser: true,
-//       }),
-//       commonjs(),
-//       terser(),
-//       gzip(),
-//     ],
-//   },
-// ];
+const iife = [
+  {
+    input: 'src/snippet-index.ts',
+    output: {
+      name: 'optiprism',
+      file: 'lib/scripts/optiprism-min.js',
+      format: 'iife',
+    },
+    plugins: [
+      typescript({
+        module: 'es6',
+        noEmit: false,
+        outDir: 'lib/script',
+        rootDir: 'src',
+      }),
+      resolve({
+        browser: true,
+      }),
+      commonjs(),
+      terser(),
+      gzip(),
+    ],
+  },
+];
 
 const snippet = [
     {
@@ -91,4 +91,4 @@ const snippet = [
 ];
 
 // export default [...umd, ...iife, ...snippet];
-export default [...umd, ...snippet];
+export default [...umd];
