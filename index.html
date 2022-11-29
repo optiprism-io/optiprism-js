@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>OptiPrism JS test</title>
+    <script src="./lib/scripts/optiprism-min.umd.js"></script>
+</head>
+
+<body>
+    <a href="http://google.com" id="el" target="_blank">google</a>
+</body>
+<script>
+    optiprism.configure({ ololo: 25 });
+    optiprism.track('View Product', { 'Product Name': 'Samsung', price: 3.14 })
+    optiprism.trackOnClick(document.querySelector('#el'), 'Buy Product')
+    optiprism.page({ additionalProp: '213' })
+    optiprism.register({ stickedProp: 'some data' })
+    optiprism.user.identify('user1', { country: 'UK' })
+    optiprism.user.set({ age: 27 })
+
+    optiprism.group.identify('company', '1', { companyName: 'Google' })
+</script>
+
+</html>
