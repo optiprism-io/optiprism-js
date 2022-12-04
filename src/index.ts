@@ -16,6 +16,7 @@ import { trackService } from './transports'
 import { getGlobalScope } from './utils/globalScope'
 import mergeObjects from './utils/mergeObjects';
 import store from './utils/store';
+import { UUID } from './utils/uuid';
 
 import { Group } from './group';
 import { User } from './user';
@@ -65,7 +66,7 @@ export class OptiprismBrowser {
     async page(props?: Map<PropertyName, PropertyValue>) {
         try {
             await trackService.trackPage({
-                context: this._getTrackContext(),
+                context: store.getTrackContext(),
                 path: 'string',
                 referer: 'string',
                 search: 'string',
@@ -83,6 +84,7 @@ export class OptiprismBrowser {
 
     unregister(data: Map<PropertyName, PropertyValue>): void {
         const properties = store.properties;
+        // @ts-ignore
         Object.keys(data).forEach(key => delete properties[key]);
         store.properties = properties;
     }
@@ -112,7 +114,18 @@ export class OptiprismBrowser {
     }
 
     reset() {
-        // TODO reset Persistobject, generate new anonymousId, generates new sessionId
+        store.config = {
+            projectId: 0,
+            serverUrl: '',
+            logLevel: LogLevel.None,
+            cookieExpiration: new Date(),
+            cookieSecure: false,
+            storage: StorageMethod.LocalStorage,
+        };
+        store.anonymousId = UUID();
+        store.sessionId = UUID();
+        store.properties = {};
+        store.userId = null;
     }
 }
 
@@ -125,5 +138,6 @@ export default createInstance();
 
 const global = getGlobalScope();
 if (global) {
+    // @ts-ignore
     global.optiprism = createInstance();
 }

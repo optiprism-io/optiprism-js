@@ -89,6 +89,11 @@ export interface IdentifyUserRequest {
 
 }
 
+export interface IdentifyGroupRequest {
+    context: TrackContext
+    properties?: Map<PropertyName, PropertyValue>
+}
+
 export interface UpdateUserRequest {
 
 }

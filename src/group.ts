@@ -1,8 +1,13 @@
 import { PropertyName, PropertyValue } from './types';
+import { trackService } from './transports'
+import store from './utils/store';
 
 export class Group {
     identify(groupType: string, groupId: string, props?: Map<PropertyName, PropertyValue>): void {
-
+        trackService.trackGroupIdentify({
+            context: store.getTrackContext(),
+            properties: props,
+        }, groupType, groupId);
     }
 
     appendToList(groupType: string,data: Map<PropertyName, PropertyValue>): void {

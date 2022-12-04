@@ -1,4 +1,4 @@
-export { TrackContext, TrackPageRequest, TrackEventRequest, TrackClickRequest, IdentifyUserRequest } from './payload';
+export { TrackContext, TrackPageRequest, TrackEventRequest, TrackClickRequest, IdentifyUserRequest, IdentifyGroupRequest } from './payload';
 export { Logger, LogLevel, LogConfig, DebugContext } from './logger';
 export { TrackOptions, TransportType } from './transport';
 export { Config, StorageMethod } from './config';

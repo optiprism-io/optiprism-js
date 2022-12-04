@@ -3,7 +3,8 @@ import {
     LogLevel,
     StorageMethod,
     PropertyName,
-    PropertyValue
+    PropertyValue,
+    TrackContext,
 } from '../types';
 
 const store = {
@@ -19,13 +20,20 @@ const store = {
     deviceId: '',
     groupKey: '',
     groups: null,
-    sessionId: null,
-    anonymousId: null,
+    sessionId: '',
+    anonymousId: '',
     userId: null,
     optedOut: false,
 
     setProperties(properties: Map<PropertyName, PropertyValue>) {
         this.properties = mergeObjects(this.properties, properties);
+    },
+    getTrackContext(): TrackContext {
+        // TODO
+        return {
+            userAgent: navigator.userAgent,
+            locale: navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language
+        }
     },
     getProperties() {
         return this.properties;
