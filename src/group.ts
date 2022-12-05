@@ -26,15 +26,18 @@ export class Group {
 
     }
 
-    set(groupType: string,data: Map<PropertyName, PropertyValue>): void {
+    set(groupType: string, groupId: string, data: Map<PropertyName, PropertyValue>): void {
+        trackService.trackGroupSet({
+            context: store.getTrackContext(),
+            operations: data,
+        }, groupType, groupId)
+    }
+
+    setOnce(groupType: string, data: Map<PropertyName, PropertyValue>): void {
 
     }
 
-    setOnce(groupType: string,data: Map<PropertyName, PropertyValue>): void {
-
-    }
-
-    unset(groupType: string,properties: PropertyName[]): void {
+    unset(groupType: string, properties: PropertyName[]): void {
 
     }
 }

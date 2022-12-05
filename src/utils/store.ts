@@ -22,7 +22,7 @@ const store = {
     groups: null,
     sessionId: '',
     anonymousId: '',
-    userId: null,
+    userId: '',
     optedOut: false,
 
     setProperties(properties: Map<PropertyName, PropertyValue>) {

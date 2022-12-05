@@ -125,7 +125,7 @@ export class OptiprismBrowser {
         store.anonymousId = UUID();
         store.sessionId = UUID();
         store.properties = {};
-        store.userId = null;
+        store.userId = '';
     }
 }
 

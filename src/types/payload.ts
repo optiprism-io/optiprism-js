@@ -86,6 +86,8 @@ export interface TrackClickRequest {
 }
 
 export interface IdentifyUserRequest {
+    context: TrackContext
+    properties?: Map<PropertyName, PropertyValue>
 
 }
 
@@ -94,12 +96,19 @@ export interface IdentifyGroupRequest {
     properties?: Map<PropertyName, PropertyValue>
 }
 
-export interface UpdateUserRequest {
+export interface UpdateGroupRequest {
+    context: TrackContext
+    operations?: Map<PropertyName, PropertyValue>
+}
 
+export interface UpdateUserRequest {
+    context: TrackContext
+    operations?: Map<PropertyName, PropertyValue>
 }
 
 export interface AliasUserRequest {
-
+    context: TrackContext
+    alias: string
 }
 
 // TODO
