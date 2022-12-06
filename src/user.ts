@@ -19,15 +19,26 @@ export class User {
 
     }
 
-    set(data: Map<PropertyName, PropertyValue>): void {
-        trackService.trackUserSet({
-            context: store.getTrackContext(),
-            operations: data,
-        }, store.userId || store.anonymousId)
+    async set(data: Map<PropertyName, PropertyValue>) {
+        try {
+            await trackService.trackUserSet({
+                context: store.getTrackContext(),
+                operations: data,
+            }, store.userId || store.anonymousId)
+        } catch (e: any) {
+            console.log(e?.message);
+        }
     }
 
-    setOnce(data: Map<PropertyName, PropertyValue>): void {
-
+    async setOnce(data: Map<PropertyName, PropertyValue>) {
+        try {
+            await trackService.trackUserSet({
+                context: store.getTrackContext(),
+                operations: data,
+            }, store.userId || store.anonymousId)
+        } catch (e: any) {
+            console.log(e?.message);
+        }
     }
 
     unset(properties: PropertyName[]): void {
@@ -50,10 +61,10 @@ export class User {
     }
 
     optOut(): void {
-
+        trackService.trackUserOptOut({}, store.userId || store.anonymousId);
     }
 
     optIn(): void {
-
+        trackService.trackUserOptIn({}, store.userId || store.anonymousId);
     }
 }
