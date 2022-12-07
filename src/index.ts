@@ -24,16 +24,10 @@ import { User } from './user';
 export class OptiprismBrowser {
     user: UserType
     group: GroupType
-
     constructor() {
         this.group = new Group();
         this.user = new User();
     }
-
-    configure(config: Config): void {
-        store.config = mergeObjects(store.config, config);
-    }
-
     _getTrackContext(): TrackContext {
         // TODO
         return {
@@ -41,7 +35,6 @@ export class OptiprismBrowser {
             locale: navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language
         }
     }
-
     async _sendTrackOnClick(item: {
         element: string
         name: string | null
@@ -62,7 +55,31 @@ export class OptiprismBrowser {
             } catch (e) {}
         }
     }
+    reset() {
+        store.config = {
+            projectId: 0,
+            serverUrl: '',
+            logLevel: LogLevel.None,
+            cookieExpiration: new Date(),
+            cookieSecure: false,
+            storage: StorageMethod.LocalStorage,
+        };
+        store.anonymousId = UUID();
+        store.sessionId = UUID();
+        store.properties = {};
+        store.userId = '';
+    }
+    configure(config: Config): void {
+        if (!store.deviceId) {
+            store.deviceId = UUID();
+        }
+        if (!store.anonymousId) {
+            store.anonymousId = UUID();
+            store.sessionId = UUID();
+        }
 
+        store.config = mergeObjects(store.config, config);
+    }
     async page(props?: Map<PropertyName, PropertyValue>) {
         try {
             await trackService.trackPage({
@@ -77,18 +94,15 @@ export class OptiprismBrowser {
             // TODO logget
         } catch (e) {}
     }
-
     register(data: Map<PropertyName, PropertyValue>): void {
         store.setProperties(data);
     }
-
     unregister(data: Map<PropertyName, PropertyValue>): void {
         const properties = store.properties;
         // @ts-ignore
         Object.keys(data).forEach(key => delete properties[key]);
         store.properties = properties;
     }
-
     async trackOnClick(el: HTMLElement, eventName: string, properties?: Map<PropertyName, PropertyValue>, options?: TrackOptions) {
         if (el) {
             const track = await this._sendTrackOnClick({
@@ -101,7 +115,6 @@ export class OptiprismBrowser {
             el.addEventListener('click', track);
         }
     }
-
     async track(eventName: string, properties?: Map<PropertyName, PropertyValue>, options?: TrackOptions) {
         try {
             await trackService.trackEvent({
@@ -111,21 +124,6 @@ export class OptiprismBrowser {
             });
             // TODO logger
         } catch (e) {}
-    }
-
-    reset() {
-        store.config = {
-            projectId: 0,
-            serverUrl: '',
-            logLevel: LogLevel.None,
-            cookieExpiration: new Date(),
-            cookieSecure: false,
-            storage: StorageMethod.LocalStorage,
-        };
-        store.anonymousId = UUID();
-        store.sessionId = UUID();
-        store.properties = {};
-        store.userId = '';
     }
 }
 
