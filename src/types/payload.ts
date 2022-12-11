@@ -46,15 +46,15 @@ export interface TrackContext {
     }
     page?: {
         path: string
-        referer: string
-        search: string
+        referer?: string
+        search?: string
         title: string
         url: string
     }
     screen?: {
         width: number
         height: number
-        density: number
+        density?: number
     }
     groups?: { [key: string]: string }
     timezone?: string
@@ -110,5 +110,3 @@ export interface AliasUserRequest {
     context: TrackContext
     alias: string
 }
-
-// TODO

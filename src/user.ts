@@ -3,18 +3,10 @@ import { trackService } from './transports'
 import store from './utils/store';
 
 export class User {
-    appendToList(data: Map<PropertyName, PropertyValue>): void {
-
-    }
-    removeFromList(data: Map<PropertyName, PropertyValue>): void {
-
-    }
-    increment(data: Map<PropertyName, number>): void {
-
-    }
-    decrement(data: Map<PropertyName, number>): void {
-
-    }
+    appendToList(data: Map<PropertyName, PropertyValue>): void {}
+    removeFromList(data: Map<PropertyName, PropertyValue>): void {}
+    increment(data: Map<PropertyName, number>): void {}
+    decrement(data: Map<PropertyName, number>): void {}
     async set(data: Map<PropertyName, PropertyValue>) {
         try {
             await trackService.trackUserSet({
@@ -35,9 +27,7 @@ export class User {
             console.log(e?.message);
         }
     }
-    unset(properties: PropertyName[]): void {
-
-    }
+    unset(properties: PropertyName[]): void {}
     identify(userId: string, props?: Map<PropertyName, PropertyValue>): void {
         store.userId = userId;
         trackService.trackUserIdentify({
