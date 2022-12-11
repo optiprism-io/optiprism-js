@@ -1,4 +1,5 @@
 import unfetch from 'unfetch'
+import { getGlobalScope } from '../utils/globalScope';
 
 let fetch = unfetch
 if (typeof window !== 'undefined') {
@@ -19,4 +20,13 @@ export default function (): { dispatch: Dispatcher } {
     return {
         dispatch,
     }
-}
+};
+
+export const sendBeacon = async (url: string, payload: object) => {
+    const globalScope = getGlobalScope();
+    if (!globalScope?.navigator.sendBeacon) {
+        throw new Error('SendBeaconTransport is not supported');
+    } else {
+        navigator.sendBeacon(url, JSON.stringify(payload));
+    }
+};

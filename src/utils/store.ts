@@ -27,6 +27,12 @@ const store = {
     setProperties(properties: Map<PropertyName, PropertyValue>) {
         this.properties = mergeObjects(this.properties, properties);
     },
+    getProperties() {
+        return this.properties;
+    },
+    getPropertiesLength() {
+        return Object.keys(this.properties).length;
+    },
     getTrackContext(): TrackContext {
         const context: TrackContext = {
             userAgent: navigator.userAgent,
@@ -48,9 +54,6 @@ const store = {
             };
         }
         return context;
-    },
-    getProperties() {
-        return this.properties;
     },
 };
 

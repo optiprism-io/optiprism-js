@@ -12,9 +12,9 @@ import {
 import store from '../utils/store'
 
 export const trackService = {
-    trackEvent  : async (body: TrackEventRequest) => await transport().dispatch(`${store.config.serverUrl}/track/event`, body),
-    trackPage: async (body: TrackPageRequest) => await transport().dispatch(`${store.config.serverUrl}/track/page`, body),
-    trackClick: async (body: TrackClickRequest) => await transport().dispatch(`${store.config.serverUrl}/track/click`, body),
+    trackEvent: async (body: TrackEventRequest) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/event`, body),
+    trackPage: async (body: TrackPageRequest) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/page`, body),
+    trackClick: async (body: TrackClickRequest) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/click`, body),
 
     trackUserIdentify: async (body: IdentifyUserRequest, id: string | number) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/user/${id}/identify`, body),
     trackUserSet: async (body: UpdateUserRequest, id: string | number) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/user/${id}`, body, 'put'),

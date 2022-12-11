@@ -36,7 +36,7 @@ export interface Group {
     increment(groupType: string, data: Map<PropertyName, number>): void
     decrement(groupType: string, data: Map<PropertyName, number>): void
     set(groupType: string, groupId: string, data: Map<PropertyName, PropertyValue>): void
-    setOnce(groupType: string, data: Map<PropertyName, PropertyValue>): void
+    setOnce(groupType: string, groupId: string, data: Map<PropertyName, PropertyValue>): void
     unset(groupType: string, properties: PropertyName[]): void
 }
 

@@ -1,6 +1,6 @@
 import { LogLevel, Logger as ILogger } from '../types';
 
-const PREFIX = 'Optiprism Logger ';
+const PREFIX = 'Optiprism Logger';
 
 export class Logger implements ILogger {
     logLevel: LogLevel;

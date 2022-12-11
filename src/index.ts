@@ -8,10 +8,9 @@ import {
     TrackOptions,
     LogLevel,
     StorageMethod,
-    Persist,
     TrackContext,
 } from './types';
-import { trackService } from './transports'
+import { trackService } from './transports';
 
 import { getGlobalScope } from './utils/globalScope'
 import mergeObjects from './utils/mergeObjects';
@@ -134,8 +133,8 @@ export const createInstance = (): OptiPrism => {
 
 export default createInstance();
 
-const global = getGlobalScope();
-if (global) {
+const globalScope = getGlobalScope();
+if (globalScope) {
     // @ts-ignore
-    global.optiprism = createInstance();
+    globalScope.optiprism = createInstance();
 }
