@@ -9,6 +9,7 @@ import {
     LogLevel,
     StorageMethod,
     TrackContext,
+    Logger as LoggerType,
 } from './types';
 import { trackService } from './transports';
 
@@ -16,6 +17,7 @@ import { getGlobalScope } from './utils/globalScope'
 import mergeObjects from './utils/mergeObjects';
 import store from './utils/store';
 import { UUID } from './utils/uuid';
+import { Logger } from './utils/logger';
 
 import { Group } from './group';
 import { User } from './user';
@@ -23,16 +25,11 @@ import { User } from './user';
 export class OptiprismBrowser {
     user: UserType
     group: GroupType
+    logger: LoggerType
     constructor() {
+        this.logger = new Logger();
         this.group = new Group();
         this.user = new User();
-    }
-    _getTrackContext(): TrackContext {
-        // TODO
-        return {
-            userAgent: navigator.userAgent,
-            locale: navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language
-        }
     }
     async _sendTrackOnClick(item: {
         element: string
@@ -42,23 +39,26 @@ export class OptiprismBrowser {
         properties?: Map<PropertyName, PropertyValue>,
     }) {
         const props = item;
-        const getTrackContext = this._getTrackContext;
+        const trackContext = store.getTrackContext();
+        const logger = this.logger;
 
         return async function sendTrack() {
             try {
-                await trackService.trackClick({
-                    context: getTrackContext(),
+                const res = await trackService.trackClick({
+                    context: trackContext,
                     ...props,
                 });
-                // TODO logger
-            } catch (e) {}
+                logger.info('trackClick', res);
+            } catch (e) {
+                logger.error('trackClick', JSON.stringify(e));
+            }
         }
     }
     reset() {
         store.config = {
             projectId: 0,
             serverUrl: '',
-            logLevel: LogLevel.None,
+            logLevel: LogLevel.Error,
             cookieExpiration: new Date(),
             cookieSecure: false,
             storage: StorageMethod.LocalStorage,
@@ -81,7 +81,7 @@ export class OptiprismBrowser {
     }
     async page(props?: Map<PropertyName, PropertyValue>) {
         try {
-            await trackService.trackPage({
+            const res = await trackService.trackPage({
                 context: store.getTrackContext(),
                 path: 'string',
                 referer: 'string',
@@ -90,8 +90,10 @@ export class OptiprismBrowser {
                 url: 'string',
                 properties: props,
             });
-            // TODO logget
-        } catch (e) {}
+            this.logger.info('page', res);
+        } catch (e) {
+            this.logger.error('page', JSON.stringify(e));
+        }
     }
     register(data: Map<PropertyName, PropertyValue>): void {
         store.setProperties(data);
@@ -116,13 +118,15 @@ export class OptiprismBrowser {
     }
     async track(eventName: string, properties?: Map<PropertyName, PropertyValue>, options?: TrackOptions) {
         try {
-            await trackService.trackEvent({
-                context: this._getTrackContext(),
+            const res = await trackService.trackEvent({
+                context: store.getTrackContext(),
                 eventName: eventName,
                 properties: properties,
             });
-            // TODO logger
-        } catch (e) {}
+            this.logger.info('track', res);
+        } catch (e) {
+            this.logger.error('track', JSON.stringify(e));
+        }
     }
 }
 

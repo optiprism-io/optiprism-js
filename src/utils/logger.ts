@@ -5,7 +5,7 @@ const PREFIX = 'Optiprism Logger';
 export class Logger implements ILogger {
     logLevel: LogLevel;
     constructor() {
-        this.logLevel = LogLevel.None;
+        this.logLevel = LogLevel.Error;
     }
     disable(): void {
         this.logLevel = LogLevel.None;
@@ -30,6 +30,12 @@ export class Logger implements ILogger {
             return;
         }
         console.error(`${PREFIX}[Error]: ${args.join(' ')}`);
+    }
+    info(...args: any[]): void {
+        if (this.logLevel < LogLevel.Info) {
+            return;
+        }
+        console.log(`${PREFIX}[Info]: ${args.join(' ')}`);
     }
     debug(...args: any[]): void {
         if (this.logLevel < LogLevel.Debug) {

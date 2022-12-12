@@ -11,7 +11,7 @@ const store = {
     config: {
         projectId: 0,
         serverUrl: '',
-        logLevel: LogLevel.None,
+        logLevel: LogLevel.Error,
         cookieExpiration: new Date(),
         cookieSecure: false,
         storage: StorageMethod.LocalStorage,
