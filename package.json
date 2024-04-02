@@ -9,6 +9,7 @@
         "build:es5": "tsc -p ./tsconfig.es5.json",
         "build:esm": "tsc -p ./tsconfig.esm.json",
         "clean": "rimraf node_modules lib coverage",
+        "fmt": "prettier ./src --write",
         "lint:eslint": "eslint '{src,test}/**/*.ts'",
         "typecheck": "tsc -p ./tsconfig.json",
         "version-file": "node -p \"'export const VERSION = \\'' + require('./package.json').version + '\\';'\" > src/version.ts"
