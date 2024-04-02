@@ -24,7 +24,7 @@ export interface Config {
   projectId: number
   token: string
   serverUrl: string
-  autotrack?: Autotrack
+  autotrack?: Autotrack | boolean
   logLevel: LogLevel
   cookieExpiration: Date
   cookieSecure: boolean

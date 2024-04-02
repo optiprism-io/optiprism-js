@@ -20,6 +20,9 @@ import { Logger } from './utils/logger'
 
 import { Group } from './group'
 import { User } from './user'
+import { type EventName } from './types/event'
+import { trackPageLoad } from './modules/trackPageLoad'
+import { trackElementsClick } from './modules/trackElementsClick'
 
 export class OptiprismBrowser {
   user: UserType
@@ -78,6 +81,7 @@ export class OptiprismBrowser {
     }
 
     store.config = mergeObjects(store.config, config)
+    if (config.autotrack) this.enableAutoTrack()
   }
   async page(props?: Map<PropertyName, PropertyValue>) {
     try {
@@ -121,14 +125,10 @@ export class OptiprismBrowser {
       el.addEventListener('click', track)
     }
   }
-  async track(
-    eventName: string,
-    properties?: Map<PropertyName, PropertyValue>,
-    options?: TrackOptions
-  ) {
+  async track(eventName: EventName, properties?: any, options?: TrackOptions) {
     try {
       const res = await trackService.trackEvent({
-        context: store.getTrackContext(),
+        // context: store.getTrackContext(),
         eventName: eventName,
         properties: properties,
       })
@@ -136,6 +136,11 @@ export class OptiprismBrowser {
     } catch (e) {
       this.logger.error('track', JSON.stringify(e))
     }
+  }
+
+  enableAutoTrack() {
+    trackPageLoad(this)
+    trackElementsClick(this)
   }
 }
 
