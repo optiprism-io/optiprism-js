@@ -4,6 +4,7 @@ import { LogLevel, PropertyName, PropertyValue, StorageMethod, TrackContext } fr
 const store = {
   config: {
     projectId: 0,
+    token: 'test-token',
     serverUrl: '',
     logLevel: LogLevel.Error,
     cookieExpiration: new Date(),

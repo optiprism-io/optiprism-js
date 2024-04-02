@@ -56,6 +56,7 @@ export class OptiprismBrowser {
   reset() {
     store.config = {
       projectId: 0,
+      token: 'test-token',
       serverUrl: '',
       logLevel: LogLevel.Error,
       cookieExpiration: new Date(),

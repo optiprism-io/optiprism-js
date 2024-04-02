@@ -22,6 +22,7 @@ export enum LogLevel {
 
 export interface Config {
   projectId: number
+  token: string
   serverUrl: string
   autotrack?: Autotrack
   logLevel: LogLevel
