@@ -14,7 +14,7 @@ import store from '../utils/store'
 export const trackService = {
   trackEvent: async (body: TrackEventRequest) =>
     await transport().dispatch(
-      `${store.config.serverUrl}/projects/${store.config.projectId}/track/event`,
+      `${store.config.serverUrl}/ingest/${store.config.token}/track`,
       body
     ),
   trackPage: async (body: TrackPageRequest) =>
