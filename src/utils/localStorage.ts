@@ -1,67 +1,67 @@
-import { getGlobalScope } from './globalScope';
-import { Storage } from '../types';
+import { getGlobalScope } from './globalScope'
+import { Storage } from '../types'
 
 export class LocalStorage<T> implements Storage<T> {
-    async isEnabled(): Promise<boolean> {
-        /* istanbul ignore if */
-        if (!getGlobalScope()) {
-            return false;
-        }
-
-        const random = String(Date.now());
-        const testStorage = new LocalStorage<string>();
-        const testKey = 'AMP_TEST';
-        try {
-            await testStorage.set(testKey, random);
-            const value = await testStorage.get(testKey);
-            return value === random;
-        } catch {
-            /* istanbul ignore next */
-            return false;
-        } finally {
-            await testStorage.remove(testKey);
-        }
+  async isEnabled(): Promise<boolean> {
+    /* istanbul ignore if */
+    if (!getGlobalScope()) {
+      return false
     }
 
-    async get(key: string): Promise<T | undefined> {
-        try {
-            const value = await this.getRaw(key);
-            if (!value) {
-                return undefined;
-            }
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-            return JSON.parse(value);
-        } catch {
-            /* istanbul ignore next */
-            return undefined;
-        }
+    const random = String(Date.now())
+    const testStorage = new LocalStorage<string>()
+    const testKey = 'AMP_TEST'
+    try {
+      await testStorage.set(testKey, random)
+      const value = await testStorage.get(testKey)
+      return value === random
+    } catch {
+      /* istanbul ignore next */
+      return false
+    } finally {
+      await testStorage.remove(testKey)
     }
+  }
 
-    async getRaw(key: string): Promise<string | undefined> {
-        return getGlobalScope()?.localStorage.getItem(key) || undefined;
+  async get(key: string): Promise<T | undefined> {
+    try {
+      const value = await this.getRaw(key)
+      if (!value) {
+        return undefined
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return JSON.parse(value)
+    } catch {
+      /* istanbul ignore next */
+      return undefined
     }
+  }
 
-    async set(key: string, value: T): Promise<void> {
-        try {
-            getGlobalScope()?.localStorage.setItem(key, JSON.stringify(value));
-        } catch {
-            //
-        }
-    }
+  async getRaw(key: string): Promise<string | undefined> {
+    return getGlobalScope()?.localStorage.getItem(key) || undefined
+  }
 
-    async remove(key: string): Promise<void> {
-        try {
-            getGlobalScope()?.localStorage.removeItem(key);
-        } catch {
-            //
-        }
+  async set(key: string, value: T): Promise<void> {
+    try {
+      getGlobalScope()?.localStorage.setItem(key, JSON.stringify(value))
+    } catch {
+      //
     }
+  }
 
-    async reset(): Promise<void> {
-        try {
-            getGlobalScope()?.localStorage.clear();
-        } catch {
-            //
-        }
+  async remove(key: string): Promise<void> {
+    try {
+      getGlobalScope()?.localStorage.removeItem(key)
+    } catch {
+      //
     }
+  }
+
+  async reset(): Promise<void> {
+    try {
+      getGlobalScope()?.localStorage.clear()
+    } catch {
+      //
+    }
+  }
 }
