@@ -2,7 +2,6 @@ import { LogLevel, StorageMethod } from '../types'
 
 export const store = {
   config: {
-    projectId: 0,
     token: '',
     serverUrl: '',
     logLevel: LogLevel.Error,
