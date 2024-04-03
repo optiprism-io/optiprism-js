@@ -1,6 +1,6 @@
 import { Logger as LoggerType, PropertyName, PropertyValue } from './types'
 import { trackService } from './transports'
-import store from './utils/store'
+import { store } from './store'
 import { Logger } from './utils/logger'
 
 const logTextMap = {

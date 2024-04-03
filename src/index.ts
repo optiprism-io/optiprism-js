@@ -14,7 +14,7 @@ import { trackService } from './transports'
 
 import { getGlobalScope } from './utils/globalScope'
 import mergeObjects from './utils/mergeObjects'
-import store from './utils/store'
+import { store } from './store'
 import { UUID } from './utils/uuid'
 import { Logger } from './utils/logger'
 

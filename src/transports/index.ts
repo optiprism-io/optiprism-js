@@ -9,7 +9,7 @@ import {
   UpdateGroupRequest,
   UpdateUserRequest,
 } from '../types'
-import store from '../utils/store'
+import { store } from '../store'
 
 export const trackService = {
   trackEvent: async (body: TrackEventRequest) =>

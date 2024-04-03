@@ -1,7 +1,7 @@
-import mergeObjects from './mergeObjects'
+import mergeObjects from '../utils/mergeObjects'
 import { LogLevel, PropertyName, PropertyValue, StorageMethod, TrackContext } from '../types'
 
-const store = {
+export const store = {
   config: {
     projectId: 0,
     token: 'test-token',
@@ -54,5 +54,3 @@ const store = {
     return context
   },
 }
-
-export default store
