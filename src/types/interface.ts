@@ -1,5 +1,6 @@
 import { TrackOptions } from './transport'
 import { Config } from './config'
+import { IProperties } from './payload'
 
 export type PropertyName = string
 export type PropertyValue = string | number | boolean | null
@@ -51,13 +52,9 @@ export interface OptiPrism {
   trackOnClick(
     el: HTMLElement,
     eventName: string,
-    props?: Map<PropertyName, PropertyValue>,
+    props?: IProperties,
     options?: TrackOptions
   ): void
-  track(
-    eventName: string,
-    properties?: Map<PropertyName, PropertyValue>,
-    options?: TrackOptions
-  ): void
+  track(eventName: string, properties?: IProperties, options?: TrackOptions): void
   reset(): void
 }

@@ -1,6 +1,8 @@
 import { PropertyName, PropertyValue } from './'
 import { type EventName } from './event'
 
+export type IProperties = Record<PropertyName, PropertyValue>
+
 export interface TrackContext {
   anonymousId?: string
   userId?: string
@@ -64,7 +66,7 @@ export interface TrackContext {
 export interface TrackEventRequest {
   context: TrackContext
   eventName: EventName
-  properties?: Record<PropertyName, PropertyValue>
+  properties?: IProperties
 }
 
 export interface TrackPageRequest {
@@ -83,7 +85,7 @@ export interface TrackClickRequest {
   name: string | null
   id: string | null
   class: string | null
-  properties?: Map<PropertyName, PropertyValue>
+  properties?: IProperties
 }
 
 export interface IdentifyUserRequest {

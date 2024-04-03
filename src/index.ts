@@ -24,6 +24,7 @@ import { type EventName } from './types/event'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
 import { getTrackContext } from './modules/getTrackContext'
+import { IProperties } from './types/payload'
 
 export class OptiprismBrowser {
   user: UserType
@@ -39,7 +40,7 @@ export class OptiprismBrowser {
     name: string | null
     id: string | null
     class: string | null
-    properties?: Map<PropertyName, PropertyValue>
+    properties?: IProperties
   }) {
     const props = item
     const trackContext = getTrackContext()
@@ -112,7 +113,7 @@ export class OptiprismBrowser {
   async trackOnClick(
     el: HTMLElement,
     eventName: string,
-    properties?: Map<PropertyName, PropertyValue>,
+    properties?: IProperties,
     options?: TrackOptions
   ) {
     if (el) {
