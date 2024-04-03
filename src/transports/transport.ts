@@ -9,10 +9,12 @@ if (typeof window !== 'undefined') {
 
 export type Dispatcher = (url: string, body: object, method?: 'post' | 'put') => Promise<unknown>
 
+const headers = { 'Content-Type': 'text/plain' }
+
 export default function (): { dispatch: Dispatcher } {
   function dispatch(url: string, body: object, method = 'post'): Promise<unknown> {
     return unfetch(url, {
-      headers: { 'Content-Type': 'text/plain' },
+      headers,
       method,
       body: JSON.stringify(body),
     })

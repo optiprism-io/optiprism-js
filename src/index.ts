@@ -147,11 +147,7 @@ export class OptiprismBrowser {
   }
 }
 
-export const createInstance = (): OptiPrism => {
-  const client = new OptiprismBrowser()
-  return client
-}
-
+export const createInstance = (): OptiPrism => new OptiprismBrowser()
 export default createInstance()
 
 const globalScope = getGlobalScope()

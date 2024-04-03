@@ -1,10 +1,10 @@
 import { Event } from '../types/event'
 import { OptiprismBrowser } from '../index'
 
-export function trackPageLoad(context: OptiprismBrowser) {
+export function trackPageLoad(ob: OptiprismBrowser) {
   window.onload = () => {
     const properties = new PageProperties()
-    context.track(Event.page, properties)
+    ob.track(Event.page, properties)
   }
 }
 

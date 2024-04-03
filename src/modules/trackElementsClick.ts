@@ -3,13 +3,13 @@ import { OptiprismBrowser } from '../index'
 
 const SELECTORS = ['button', 'a']
 
-export function trackElementsClick(context: OptiprismBrowser) {
+export function trackElementsClick(ob: OptiprismBrowser) {
   const trackClickEvent = (element: Element) => {
     element.addEventListener('click', event => {
       const el = event.target as HTMLElement
       const properties = new ElementProperties(el)
 
-      context.track(Event.click, properties)
+      ob.track(Event.click, properties)
     })
   }
 
