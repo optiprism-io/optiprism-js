@@ -32,6 +32,8 @@ export class OptiprismBrowser {
   }
 
   configure(config: Config): void {
+    if (!config.token) this.logger.error('token is required')
+
     if (!store.deviceId) {
       store.deviceId = UUID()
     }
