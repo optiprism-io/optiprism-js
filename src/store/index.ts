@@ -1,5 +1,4 @@
-import mergeObjects from '../utils/mergeObjects'
-import { LogLevel, PropertyName, PropertyValue, StorageMethod } from '../types'
+import { LogLevel, StorageMethod } from '../types'
 
 export const store = {
   config: {
@@ -19,13 +18,4 @@ export const store = {
   anonymousId: '',
   userId: '',
   optedOut: false,
-  setProperties(properties: Map<PropertyName, PropertyValue>) {
-    this.properties = mergeObjects(this.properties, properties)
-  },
-  getProperties() {
-    return this.properties
-  },
-  getPropertiesLength() {
-    return Object.keys(this.properties).length
-  },
 }

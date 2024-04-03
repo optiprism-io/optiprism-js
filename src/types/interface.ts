@@ -1,7 +1,3 @@
-import { TrackOptions } from './transport'
-import { Config } from './config'
-import { IProperties } from './payload'
-
 export type PropertyName = string
 export type PropertyValue = string | number | boolean | null
 
@@ -39,22 +35,4 @@ export interface Group {
   set(groupType: string, groupId: string, data: Map<PropertyName, PropertyValue>): void
   setOnce(groupType: string, groupId: string, data: Map<PropertyName, PropertyValue>): void
   unset(groupType: string, properties: PropertyName[]): void
-}
-
-export interface OptiPrism {
-  user: User
-  group: Group
-
-  configure(config: Config): void
-  page(props?: Map<PropertyName, PropertyValue>): void
-  register(data: Map<PropertyName, PropertyValue>): void
-  unregister(data: Map<PropertyName, PropertyValue>): void
-  trackOnClick(
-    el: HTMLElement,
-    eventName: string,
-    props?: IProperties,
-    options?: TrackOptions
-  ): void
-  track(eventName: string, properties?: IProperties, options?: TrackOptions): void
-  reset(): void
 }
