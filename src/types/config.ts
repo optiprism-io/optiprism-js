@@ -23,11 +23,11 @@ export enum LogLevel {
 export interface Config {
   projectId: number
   token: string
-  serverUrl: string
+  serverUrl?: string
   autotrack?: Autotrack | boolean
-  logLevel: LogLevel
-  cookieExpiration: Date
-  cookieSecure: boolean
-  storage: StorageMethod
+  logLevel?: LogLevel
+  cookieExpiration?: Date
+  cookieSecure?: boolean
+  storage?: StorageMethod
   attribution?: string[]
 }
