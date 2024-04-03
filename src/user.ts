@@ -2,6 +2,7 @@ import { Logger as LoggerType, PropertyName, PropertyValue } from './types'
 import { trackService } from './transports'
 import { store } from './store'
 import { Logger } from './utils/logger'
+import { getTrackContext } from './modules/getTrackContext'
 
 const logTextMap = {
   set: 'user set',
@@ -26,7 +27,7 @@ export class User {
     try {
       const res = await trackService.trackUserSet(
         {
-          context: store.getTrackContext(),
+          context: getTrackContext(),
           operations: data,
         },
         store.userId || store.anonymousId
@@ -40,7 +41,7 @@ export class User {
     try {
       const res = await trackService.trackUserSet(
         {
-          context: store.getTrackContext(),
+          context: getTrackContext(),
           operations: data,
         },
         store.userId || store.anonymousId
@@ -56,7 +57,7 @@ export class User {
     try {
       const res = await trackService.trackUserIdentify(
         {
-          context: store.getTrackContext(),
+          context: getTrackContext(),
           properties: props,
         },
         userId
@@ -70,7 +71,7 @@ export class User {
     try {
       const res = await trackService.trackUserAlias(
         {
-          context: store.getTrackContext(),
+          context: getTrackContext(),
           alias: newId,
         },
         oldId || store.userId || store.anonymousId

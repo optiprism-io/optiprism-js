@@ -23,6 +23,7 @@ import { User } from './user'
 import { type EventName } from './types/event'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
+import { getTrackContext } from './modules/getTrackContext'
 
 export class OptiprismBrowser {
   user: UserType
@@ -41,7 +42,7 @@ export class OptiprismBrowser {
     properties?: Map<PropertyName, PropertyValue>
   }) {
     const props = item
-    const trackContext = store.getTrackContext()
+    const trackContext = getTrackContext()
     const logger = this.logger
 
     return async function sendTrack() {
@@ -86,7 +87,7 @@ export class OptiprismBrowser {
   async page(props?: Map<PropertyName, PropertyValue>) {
     try {
       const res = await trackService.trackPage({
-        context: store.getTrackContext(),
+        context: getTrackContext(),
         path: 'string',
         referer: 'string',
         search: 'string',
@@ -126,9 +127,10 @@ export class OptiprismBrowser {
     }
   }
   async track(eventName: EventName, properties?: any, options?: TrackOptions) {
+    const context = getTrackContext()
     try {
       const res = await trackService.trackEvent({
-        // context: store.getTrackContext(),
+        context,
         eventName: eventName,
         properties: properties,
       })

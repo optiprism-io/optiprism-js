@@ -1,7 +1,7 @@
 import { Logger as LoggerType, PropertyName, PropertyValue } from './types'
 import { trackService } from './transports'
-import { store } from './store'
 import { Logger } from './utils/logger'
+import { getTrackContext } from './modules/getTrackContext'
 
 const logTextMap = {
   setOnce: 'group setOnce',
@@ -22,7 +22,7 @@ export class Group {
     try {
       const res = await trackService.trackGroupIdentify(
         {
-          context: store.getTrackContext(),
+          context: getTrackContext(),
           properties: props,
         },
         groupType,
@@ -37,7 +37,7 @@ export class Group {
     try {
       const res = await trackService.trackGroupSet(
         {
-          context: store.getTrackContext(),
+          context: getTrackContext(),
           operations: data,
         },
         groupType,
@@ -52,7 +52,7 @@ export class Group {
     try {
       const res = await trackService.trackGroupSet(
         {
-          context: store.getTrackContext(),
+          context: getTrackContext(),
           operations: data,
         },
         groupType,

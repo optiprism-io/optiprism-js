@@ -62,7 +62,7 @@ export interface TrackContext {
 }
 
 export interface TrackEventRequest {
-  // context: TrackContext
+  context: TrackContext
   eventName: EventName
   properties?: Record<PropertyName, PropertyValue>
 }
