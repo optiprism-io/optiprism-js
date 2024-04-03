@@ -1,20 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>OptiPrism JS test</title>
     <script src="./lib/scripts/optiprism-min.umd.js"></script>
-</head>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<body>
-    <a href="http://google.com" id="link" class="test-link1 test-link2" target="_blank">google</a>
-    <button class="test-btn1 test-btn2" name="test-name" id="btn">Тестовая кнопка</button>
-</body>
-<script>
+  <body>
+    <div class="app">
+      <div class="test-link-block">
+        <ul>
+          <li>
+            <a href="http://google.com" id="link1" class="test-link1 test-link2" target="_blank">
+              google.com
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.shopify.com"
+              id="link2"
+              class="test-link1 test-link2"
+              target="_blank"
+            >
+              shopify.com
+            </a>
+          </li>
+          <li>
+            <a href="https://jetbrains.com" class="test-link1 test-link2" target="_blank">
+              jetbrains.com
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="test-btn-block">
+        <button class="test-btn1 test-btn2" name="test-name" id="btn">Test btn 1</button>
+        <button class="test-btn1 test-btn2" name="test-name2">Test btn 2</button>
+        <button class="test-btn1 test-btn2" name="test-name2">Test btn 3</button>
+      </div>
+    </div>
+  </body>
+
+  <script>
     optiprism.configure({
-        serverUrl: 'https://optiprism.io',
+      serverUrl: 'https://optiprism.io',
     })
-</script>
-
+  </script>
 </html>

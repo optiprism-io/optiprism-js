@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+}
+
+.app {
+  background-color: antiquewhite;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  height: 100vh;
+}
