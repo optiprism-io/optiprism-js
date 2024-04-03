@@ -83,7 +83,9 @@ export class OptiprismBrowser {
     }
 
     store.config = mergeObjects(store.config, config)
-    if (config.autotrack) this.enableAutoTrack()
+
+    if (config.autotrack === false) return
+    this.enableAutoTrack()
   }
   async page(props?: Map<PropertyName, PropertyValue>) {
     try {
