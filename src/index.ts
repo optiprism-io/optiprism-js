@@ -51,12 +51,11 @@ export class OptiprismBrowser {
   async track(eventName: EventName, properties?: any, options?: TrackOptions) {
     const context = getTrackContext()
     try {
-      const res = await trackService.trackEvent({
+      trackService.trackEvent({
         context,
         eventName: eventName,
         properties: properties,
       })
-      this.logger.info('track', res)
     } catch (e) {
       this.logger.error('track', JSON.stringify(e))
     }

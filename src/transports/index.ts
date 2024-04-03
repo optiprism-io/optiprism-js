@@ -1,4 +1,4 @@
-import transport, { sendBeacon } from './transport'
+import { Transport } from './transport'
 import {
   AliasUserRequest,
   IdentifyGroupRequest,
@@ -12,36 +12,31 @@ import {
 import { store } from '../store'
 
 export const trackService = {
-  trackEvent: async (body: TrackEventRequest) =>
-    await sendBeacon(`${store.config.serverUrl}/ingest/${store.config.token}/track`, body),
+  trackEvent: (body: TrackEventRequest) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/ingest/${store.config.token}/track`, body),
 
   /* TODO: Correct urls */
-  trackPage: async (body: TrackPageRequest) =>
-    await sendBeacon(`${store.config.serverUrl}/projects/track/page`, body),
-  trackClick: async (body: TrackClickRequest) =>
-    await sendBeacon(`${store.config.serverUrl}/projects/track/click`, body),
+  trackPage: (body: TrackPageRequest) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/page`, body),
+  trackClick: (body: TrackClickRequest) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/click`, body),
 
-  trackUserIdentify: async (body: IdentifyUserRequest, id: string | number) =>
-    await sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/identify`, body),
-  trackUserSet: async (body: UpdateUserRequest, id: string | number) =>
-    await transport().dispatch(`${store.config.serverUrl}/projects/track/user/${id}`, body, 'put'),
-  trackUserAlias: async (body: AliasUserRequest, id: string | number) =>
-    await sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/alias`, body),
-  trackUserOptIn: async (body: {}, id: string | number) =>
-    await sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/opt-in`, body),
-  trackUserOptOut: async (body: {}, id: string | number) =>
-    await sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/opt-out`, body),
+  trackUserIdentify: (body: IdentifyUserRequest, id: string | number) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/identify`, body),
+  trackUserSet: (body: UpdateUserRequest, id: string | number) =>
+    Transport.dispatch(`${store.config.serverUrl}/projects/track/user/${id}`, body, 'put'),
+  trackUserAlias: (body: AliasUserRequest, id: string | number) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/alias`, body),
+  trackUserOptIn: (body: {}, id: string | number) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/opt-in`, body),
+  trackUserOptOut: (body: {}, id: string | number) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/opt-out`, body),
 
-  trackGroupIdentify: async (
-    body: IdentifyGroupRequest,
-    key: string | number,
-    id: string | number
-  ) =>
-    await sendBeacon(`${store.config.serverUrl}/projects/track/group/${key}/${id}/identify`, body),
-  trackGroupSet: async (body: UpdateGroupRequest, key: string | number, id: string | number) =>
-    await transport().dispatch(
-      `${store.config.serverUrl}/projects/track/group/${key}/${id}`,
-      body,
-      'put'
+  trackGroupIdentify: (body: IdentifyGroupRequest, key: string | number, id: string | number) =>
+    Transport.sendBeacon(
+      `${store.config.serverUrl}/projects/track/group/${key}/${id}/identify`,
+      body
     ),
+  trackGroupSet: (body: UpdateGroupRequest, key: string | number, id: string | number) =>
+    Transport.dispatch(`${store.config.serverUrl}/projects/track/group/${key}/${id}`, body, 'put'),
 }
