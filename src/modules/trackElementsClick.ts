@@ -18,21 +18,19 @@ export function trackElementsClick(ob: OptiprismBrowser) {
 }
 
 class ElementProperties {
-  element: string
-  name: string
-  id: string
-  class: string
-  href: string
-  style = {}
-  text: string
+  Element: string
+  Name: string
+  ID: string
+  Class: string
+  Href: string
+  Text: string
 
   constructor(el: HTMLElement) {
-    this.element = el.tagName
-    this.name = el.getAttribute('name') || ''
-    this.id = el.getAttribute('id') || ''
-    this.class = el.getAttribute('class') || ''
-    this.href = el.getAttribute('href') || ''
-    this.style = el.style
-    this.text = el.innerText
+    this.Element = el.tagName
+    this.Name = el.getAttribute('name') || ''
+    this.ID = el.getAttribute('id') || ''
+    this.Class = el.getAttribute('class') || ''
+    this.Href = el.getAttribute('href') || ''
+    this.Text = el.innerText
   }
 }
