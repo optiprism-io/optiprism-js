@@ -4,6 +4,7 @@
     "sideEffects": false,
     "scripts": {
         "start-test-server": "yarn bundle && node server",
+        "express": "node ./src/server/index.js",
         "build": "yarn bundle && yarn build:es5 && yarn build:esm",
         "bundle": "rollup --config rollup.config.js",
         "build:es5": "tsc -p ./tsconfig.es5.json",
