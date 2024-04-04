@@ -1,5 +1,6 @@
 import unfetch from 'unfetch'
 import { getGlobalScope } from '../utils/globalScope'
+import { deleteFalsyValuesMutable } from '../utils/deleteFalsyValuesMutable'
 
 let fetch = unfetch
 if (typeof window !== 'undefined') {
@@ -15,7 +16,9 @@ export class Transport {
     if (!globalScope?.navigator.sendBeacon) {
       throw new Error('SendBeaconTransport is not supported')
     } else {
-      navigator.sendBeacon(url, JSON.stringify(payload))
+      /* TODO: think about the middleware layer */
+      const data = JSON.stringify(deleteFalsyValuesMutable(payload))
+      navigator.sendBeacon(url, data)
     }
   }
 
