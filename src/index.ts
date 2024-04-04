@@ -16,7 +16,7 @@ import { Group } from './group'
 import { User } from './user'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
-import { EventName } from './types/event'
+import { EventName, IEventType } from './types/event'
 import { getTrackContext } from './modules/getTrackContext'
 import { trackService } from './transports'
 
@@ -48,12 +48,18 @@ export class OptiprismBrowser {
     this.enableAutoTrack()
   }
 
-  async track(eventName: EventName, properties?: any, options?: TrackOptions) {
+  async track(
+    eventName: EventName,
+    eventType: IEventType,
+    properties?: any,
+    options?: TrackOptions
+  ) {
     const context = getTrackContext()
     try {
       trackService.trackEvent({
         context,
-        eventName: eventName,
+        event: eventName,
+        type: eventType,
         properties: properties,
       })
     } catch (e) {

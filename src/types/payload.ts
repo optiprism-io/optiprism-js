@@ -1,5 +1,5 @@
 import { PropertyName, PropertyValue } from './'
-import { type EventName } from './event'
+import { type EventName, IEventType } from './event'
 
 export type IProperties = Record<PropertyName, PropertyValue>
 
@@ -65,7 +65,8 @@ export interface TrackContext {
 
 export interface TrackEventRequest {
   context: TrackContext
-  eventName: EventName
+  event: EventName
+  type: IEventType
   properties?: IProperties
 }
 
