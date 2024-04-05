@@ -3,7 +3,7 @@ import { LogLevel, StorageMethod } from '../types'
 export const store = {
   config: {
     token: '',
-    serverUrl: '',
+    serverUrl: 'http://localhost:8080/api/v1',
     logLevel: LogLevel.Error,
     cookieExpiration: new Date(),
     cookieSecure: false,
