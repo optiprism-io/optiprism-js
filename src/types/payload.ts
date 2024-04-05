@@ -64,6 +64,7 @@ export interface TrackContext {
 }
 
 export interface TrackEventRequest {
+  anonymousId: string
   context: TrackContext
   event: EventName
   type: IEventType

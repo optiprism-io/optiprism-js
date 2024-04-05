@@ -19,6 +19,9 @@ import { trackElementsClick } from './modules/trackElementsClick'
 import { EventName, IEventType } from './types/event'
 import { getTrackContext } from './modules/getTrackContext'
 import { trackService } from './transports'
+import { LocalStorage } from './utils/localStorage'
+
+const ANONYMOUS_ID_KEY = 'opti_anonymous_id'
 
 export class OptiprismBrowser {
   user: UserType
@@ -34,12 +37,10 @@ export class OptiprismBrowser {
   configure(config: Config): void {
     if (!config.token) this.logger.error('token is required')
 
+    this.__initAnonymousId()
+
     if (!store.deviceId) {
       store.deviceId = UUID()
-    }
-    if (!store.anonymousId) {
-      store.anonymousId = UUID()
-      store.sessionId = UUID()
     }
 
     store.config = mergeObjects(store.config, config)
@@ -57,6 +58,7 @@ export class OptiprismBrowser {
     const context = getTrackContext()
     try {
       trackService.trackEvent({
+        anonymousId: store.anonymousId,
         context,
         event: eventName,
         type: eventType,
@@ -70,6 +72,11 @@ export class OptiprismBrowser {
   enableAutoTrack() {
     trackPageLoad(this)
     trackElementsClick(this)
+  }
+
+  __initAnonymousId() {
+    const anonymousId = LocalStorage.getOrSet(ANONYMOUS_ID_KEY, UUID())
+    store.anonymousId = anonymousId
   }
 }
 
