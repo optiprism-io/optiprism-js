@@ -9,17 +9,17 @@ export function trackPageLoad(ob: OptiprismBrowser) {
 }
 
 class PageProperties {
-  path: string
-  referer: string
-  search: string
-  title: string
-  url: string
+  ['Page Path']: string;
+  ['Page Referer']: string;
+  ['Page Search']: string;
+  ['Page Title']: string;
+  ['Page URL']: string
 
-  constructor({ path, referer, search, title, url }: Partial<PageProperties> = {}) {
-    this.path = path || location.pathname
-    this.referer = referer || document.referrer
-    this.search = search || location.search
-    this.title = title || document.title
-    this.url = url || location.href
+  constructor(page: Partial<PageProperties> = {}) {
+    this['Page Path'] = page['Page Path'] || location.pathname
+    this['Page Referer'] = page['Page Referer'] || document.referrer
+    this['Page Search'] = page['Page Search'] || location.search
+    this['Page Title'] = page['Page Title'] || document.title
+    this['Page URL'] = page['Page URL'] || location.href
   }
 }
