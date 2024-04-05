@@ -4,7 +4,7 @@ import { OptiprismBrowser } from '../index'
 export function trackPageLoad(ob: OptiprismBrowser) {
   window.onload = () => {
     const properties = new PageProperties()
-    ob.track(Event.page, EventType.page, properties)
+    ob.track(Event.page, EventType.track, properties)
   }
 }
 

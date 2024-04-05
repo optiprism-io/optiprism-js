@@ -4,7 +4,6 @@ export const Event = {
 } as const
 
 export const EventType = {
-  page: 'page',
   track: 'track',
 } as const
 
