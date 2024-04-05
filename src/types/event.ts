@@ -1,6 +1,6 @@
 export const Event = {
-  page: 'page',
-  click: 'click',
+  page: 'Page',
+  click: 'Click',
 } as const
 
 export const EventType = {
