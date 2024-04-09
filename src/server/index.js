@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/ingest/:token/track', (req, res) => {
+app.post('/api/v1/ingest/:token/track', (req, res) => {
   sleep(SERVER_TIMEOUT).then(() => {
     res.send(req.params)
   })
