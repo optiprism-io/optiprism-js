@@ -7,8 +7,8 @@ function sleep(ms) {
 }
 
 const app = express()
-const port = 4000
-const SERVER_TIMEOUT = 3000
+const port = 8080
+const SERVER_TIMEOUT = 1000
 
 app.use(cors())
 app.use(morgan('tiny'))
