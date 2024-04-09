@@ -10,6 +10,7 @@
     "build:es5": "tsc -p ./tsconfig.es5.json",
     "build:esm": "tsc -p ./tsconfig.esm.json",
     "test": "vitest",
+    "test:e2e": "playwright test",
     "clean": "rimraf node_modules lib coverage",
     "fmt": "prettier ./src --write",
     "lint:eslint": "eslint '{src,test}/**/*.ts'",
