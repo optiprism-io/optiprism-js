@@ -11,7 +11,6 @@
     "build:esm": "tsc -p ./tsconfig.esm.json",
     "test": "vitest ./src/tests/unit",
     "test:e2e": "playwright test",
-    "clean": "rimraf node_modules lib coverage",
     "fmt": "prettier ./src --write",
     "typecheck": "tsc -p ./tsconfig.json",
     "version-file": "node -p \"'export const VERSION = \\'' + require('./package.json').version + '\\';'\" > src/version.ts"
@@ -34,7 +33,6 @@
     "isomorphic-fetch": "^3.0.0",
     "morgan": "^1.10.0",
     "prettier": "^3.2.5",
-    "rimraf": "^3.0.2",
     "rollup": "^2.69.0",
     "rollup-plugin-execute": "^1.1.1",
     "rollup-plugin-gzip": "^3.0.0",
