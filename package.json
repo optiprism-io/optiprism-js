@@ -1,12 +1,13 @@
 {
   "name": "optiprism_analytics_browser",
   "version": "0.0.1",
+  "type": "module",
   "sideEffects": false,
   "engines": {
     "node": ">=18.0.0"
   },
   "scripts": {
-    "start-test-server": "yarn bundle && node server",
+    "start-test-server": "yarn bundle && node server.cjs",
     "express": "node ./src/server/index.js",
     "build": "yarn bundle && yarn build:es5 && yarn build:esm",
     "bundle": "rollup --config rollup.config.js",
