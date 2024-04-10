@@ -2,8 +2,6 @@
   "include": ["src/**/*", "test/**/*"],
   "compilerOptions": {
     "alwaysStrict": false,
-    "declaration": true,
-    "declarationMap": true,
     "downlevelIteration": true,
     "inlineSources": true,
     "importHelpers": true,
