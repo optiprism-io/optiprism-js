@@ -9,7 +9,7 @@
     "bundle": "rollup --config rollup.config.js",
     "build:es5": "tsc -p ./tsconfig.es5.json",
     "build:esm": "tsc -p ./tsconfig.esm.json",
-    "test": "vitest ./src/tests/unit",
+    "test:unit": "vitest ./src/tests/unit",
     "test:e2e": "playwright test",
     "fmt": "prettier ./src --write",
     "typecheck": "tsc -p ./tsconfig.json",
