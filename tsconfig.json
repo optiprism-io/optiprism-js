@@ -6,7 +6,7 @@
     "inlineSources": true,
     "importHelpers": true,
     "lib": ["es6", "dom"],
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmitHelpers": true,
     "noFallthroughCasesInSwitch": true,
