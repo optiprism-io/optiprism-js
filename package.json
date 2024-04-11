@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start-test-server": "yarn bundle && node server.cjs",
-    "express": "node ./src/server/index.js",
+    "express": "node ./src/server/index.cjs",
     "build": "yarn bundle && yarn build:es5 && yarn build:esm",
     "bundle": "rollup --config rollup.config.js",
     "build:es5": "tsc -p ./tsconfig.es5.json",
