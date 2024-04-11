@@ -1,5 +1,4 @@
 import typescript from '@rollup/plugin-typescript'
-import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 import gzip from 'rollup-plugin-gzip'
@@ -41,7 +40,6 @@ const umd = [
       resolve({
         browser: true,
       }),
-      commonjs(),
       terser(),
       gzip(),
     ],
@@ -66,7 +64,6 @@ const iife = [
       resolve({
         browser: true,
       }),
-      commonjs(),
       terser(),
       gzip(),
     ],
