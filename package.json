@@ -7,12 +7,9 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "start-test-server": "yarn bundle && node server.cjs",
+    "start-test-server": "yarn build && node server.cjs",
+    "build": "rollup --config rollup.config.js",
     "express": "node ./src/server/index.cjs",
-    "build": "yarn bundle && yarn build:es5 && yarn build:esm",
-    "bundle": "rollup --config rollup.config.js",
-    "build:es5": "tsc -p ./tsconfig.es5.json",
-    "build:esm": "tsc -p ./tsconfig.esm.json",
     "test:unit": "vitest ./src/tests/unit",
     "test:e2e": "playwright test",
     "fmt": "prettier ./src --write",
