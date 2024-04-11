@@ -1,3 +1,4 @@
+import { defineConfig, type RollupOptions } from 'rollup'
 import typescript from '@rollup/plugin-typescript'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
@@ -22,7 +23,7 @@ const optiprismSnippet = () => {
   }
 }
 
-const umd = [
+const umd: RollupOptions[] = [
   {
     input: 'src/index.ts',
     output: {
@@ -40,7 +41,7 @@ const umd = [
   },
 ]
 
-const iife = [
+const iife: RollupOptions[] = [
   {
     input: 'src/snippet-index.ts',
     output: {
@@ -75,4 +76,4 @@ const snippet = [
 ]
 
 // export default [...umd, ...iife, ...snippet];
-export default [...umd]
+export default defineConfig([...umd])
