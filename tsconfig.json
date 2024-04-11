@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*", "test/**/*"],
+  "include": ["src/**/*", "test/**/*", "./rollup.config.ts"],
   "compilerOptions": {
     "alwaysStrict": false,
     "downlevelIteration": true,

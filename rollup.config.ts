@@ -6,8 +6,9 @@ import { exec } from 'child_process'
 const optiprismSnippet = () => {
   return {
     name: 'optiprism-snippet',
-    options: opt => {
+    options: (opt: unknown) => {
       return new Promise(resolve => {
+        // @ts-ignore
         opt.input = 'generated/optiprismSnippet.js'
         if (process.env.GENERATE_SNIPPET !== 'true') return resolve(opt)
         exec('node scripts/version/createSnippet.js', err => {

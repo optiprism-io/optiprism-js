@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start-test-server": "yarn build && node server.cjs",
-    "build": "rollup --config rollup.config.js",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "express": "node ./src/server/index.cjs",
     "test:unit": "vitest ./src/tests/unit",
     "test:e2e": "playwright test",
