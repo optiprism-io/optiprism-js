@@ -23,57 +23,50 @@ const optiprismSnippet = () => {
   }
 }
 
-const umd: RollupOptions[] = [
-  {
-    input: 'src/index.ts',
-    output: {
-      name: 'optiprism',
-      file: 'public/lib/scripts/optiprism-min.umd.js',
-      format: 'umd',
-    },
-    plugins: [
-      typescript(),
-      resolve({
-        browser: true,
-      }),
-      terser(),
-    ],
+const umd: RollupOptions = {
+  input: 'src/index.ts',
+  output: {
+    name: 'optiprism',
+    file: 'public/lib/scripts/optiprism-min.umd.js',
+    format: 'umd',
   },
-]
+  plugins: [
+    typescript(),
+    resolve({
+      browser: true,
+    }),
+    terser(),
+  ],
+}
 
-const iife: RollupOptions[] = [
-  {
-    input: 'src/snippet-index.ts',
-    output: {
-      name: 'optiprism',
-      file: 'lib/scripts/optiprism-min.js',
-      format: 'iife',
-    },
-    plugins: [
-      typescript(),
-      resolve({
-        browser: true,
-      }),
-      terser(),
-    ],
+const iife: RollupOptions = {
+  input: 'src/snippet-index.ts',
+  output: {
+    name: 'optiprism',
+    file: 'lib/scripts/optiprism-min.js',
+    format: 'iife',
   },
-]
+  plugins: [
+    typescript(),
+    resolve({
+      browser: true,
+    }),
+    terser(),
+  ],
+}
 
-const snippet = [
-  {
-    output: {
-      name: 'optiprism',
-      file: 'lib/scripts/optiprism-snippet-min.js',
-      format: 'iife',
-    },
-    plugins: [
-      optiprismSnippet(),
-      terser(),
-      //   execute('node scripts/version/create-snippet-instructions.js'),
-      //   execute('node scripts/version/update-readme.js'),
-    ],
+const snippet = {
+  output: {
+    name: 'optiprism',
+    file: 'lib/scripts/optiprism-snippet-min.js',
+    format: 'iife',
   },
-]
+  plugins: [
+    optiprismSnippet(),
+    terser(),
+    //   execute('node scripts/version/create-snippet-instructions.js'),
+    //   execute('node scripts/version/update-readme.js'),
+  ],
+}
 
-// export default [...umd, ...iife, ...snippet];
-export default defineConfig([...umd])
+export default defineConfig(umd)
