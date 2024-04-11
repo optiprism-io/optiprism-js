@@ -1,9 +1,9 @@
-import { defineConfig, type RollupOptions } from 'rollup'
+import { defineConfig } from 'rollup'
 import typescript from '@rollup/plugin-typescript'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 
-const umd: RollupOptions = {
+export default defineConfig({
   input: 'src/index.ts',
   output: {
     name: 'optiprism',
@@ -17,22 +17,4 @@ const umd: RollupOptions = {
     }),
     terser(),
   ],
-}
-
-const iife: RollupOptions = {
-  input: 'src/snippet-index.ts',
-  output: {
-    name: 'optiprism',
-    file: 'lib/scripts/optiprism-min.js',
-    format: 'iife',
-  },
-  plugins: [
-    typescript(),
-    resolve({
-      browser: true,
-    }),
-    terser(),
-  ],
-}
-
-export default defineConfig(umd)
+})
