@@ -30,12 +30,7 @@ const umd = [
       format: 'umd',
     },
     plugins: [
-      typescript({
-        module: 'es6',
-        noEmit: false,
-        outDir: 'lib/umd',
-        rootDir: 'src',
-      }),
+      typescript(),
       resolve({
         browser: true,
       }),
@@ -53,12 +48,7 @@ const iife = [
       format: 'iife',
     },
     plugins: [
-      typescript({
-        module: 'es6',
-        noEmit: false,
-        outDir: 'lib/script',
-        rootDir: 'src',
-      }),
+      typescript(),
       resolve({
         browser: true,
       }),
