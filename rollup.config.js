@@ -1,7 +1,6 @@
 import typescript from '@rollup/plugin-typescript'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
-import gzip from 'rollup-plugin-gzip'
 import { exec } from 'child_process'
 
 const optiprismSnippet = () => {
@@ -41,7 +40,6 @@ const umd = [
         browser: true,
       }),
       terser(),
-      gzip(),
     ],
   },
 ]
@@ -65,7 +63,6 @@ const iife = [
         browser: true,
       }),
       terser(),
-      gzip(),
     ],
   },
 ]
