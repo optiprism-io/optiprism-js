@@ -1,47 +1,47 @@
-import { LogLevel, Logger as ILogger } from '../types';
+import { Logger as ILogger, LogLevel } from '../types'
 
-const PREFIX = 'Optiprism Logger';
+const PREFIX = 'Optiprism Logger'
 
 export class Logger implements ILogger {
-    logLevel: LogLevel;
-    constructor() {
-        this.logLevel = LogLevel.Error;
+  logLevel: LogLevel
+  constructor() {
+    this.logLevel = LogLevel.Error
+  }
+  disable(): void {
+    this.logLevel = LogLevel.None
+  }
+  enable(logLevel: LogLevel = LogLevel.Warn): void {
+    this.logLevel = logLevel
+  }
+  log(...args: any[]): void {
+    if (this.logLevel < LogLevel.Verbose) {
+      return
     }
-    disable(): void {
-        this.logLevel = LogLevel.None;
+    console.log(`${PREFIX}[Log]: ${args.join(' ')}`)
+  }
+  warn(...args: any[]): void {
+    if (this.logLevel < LogLevel.Warn) {
+      return
     }
-    enable(logLevel: LogLevel = LogLevel.Warn): void {
-        this.logLevel = logLevel;
+    console.warn(`${PREFIX}[Warn]: ${args.join(' ')}`)
+  }
+  error(...args: any[]): void {
+    if (this.logLevel < LogLevel.Error) {
+      return
     }
-    log(...args: any[]): void {
-        if (this.logLevel < LogLevel.Verbose) {
-            return;
-        }
-        console.log(`${PREFIX}[Log]: ${args.join(' ')}`);
+    console.error(`${PREFIX}[Error]: ${args.join(' ')}`)
+  }
+  info(...args: any[]): void {
+    if (this.logLevel < LogLevel.Info) {
+      return
     }
-    warn(...args: any[]): void {
-        if (this.logLevel < LogLevel.Warn) {
-            return;
-        }
-        console.warn(`${PREFIX}[Warn]: ${args.join(' ')}`);
+    console.log(`${PREFIX}[Info]: ${args.join(' ')}`)
+  }
+  debug(...args: any[]): void {
+    if (this.logLevel < LogLevel.Debug) {
+      return
     }
-    error(...args: any[]): void {
-        if (this.logLevel < LogLevel.Error) {
-            return;
-        }
-        console.error(`${PREFIX}[Error]: ${args.join(' ')}`);
-    }
-    info(...args: any[]): void {
-        if (this.logLevel < LogLevel.Info) {
-            return;
-        }
-        console.log(`${PREFIX}[Info]: ${args.join(' ')}`);
-    }
-    debug(...args: any[]): void {
-        if (this.logLevel < LogLevel.Debug) {
-            return;
-        }
-        // console.debug output is hidden by default in chrome
-        console.log(`${PREFIX}[Debug]: ${args.join(' ')}`);
-    }
+    // console.debug output is hidden by default in chrome
+    console.log(`${PREFIX}[Debug]: ${args.join(' ')}`)
+  }
 }

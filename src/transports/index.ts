@@ -1,27 +1,42 @@
-import transport from './transport'
+import { Transport } from './transport'
 import {
-    TrackPageRequest,
-    UpdateGroupRequest,
-    TrackEventRequest,
-    TrackClickRequest,
-    IdentifyUserRequest,
-    IdentifyGroupRequest,
-    AliasUserRequest,
-    UpdateUserRequest,
+  AliasUserRequest,
+  IdentifyGroupRequest,
+  IdentifyUserRequest,
+  TrackClickRequest,
+  TrackEventRequest,
+  TrackPageRequest,
+  UpdateGroupRequest,
+  UpdateUserRequest,
 } from '../types'
-import store from '../utils/store'
+import { store } from '../store'
 
 export const trackService = {
-    trackEvent: async (body: TrackEventRequest) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/event`, body),
-    trackPage: async (body: TrackPageRequest) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/page`, body),
-    trackClick: async (body: TrackClickRequest) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/click`, body),
+  trackEvent: (body: TrackEventRequest) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/ingest/${store.config.token}/track`, body),
 
-    trackUserIdentify: async (body: IdentifyUserRequest, id: string | number) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/user/${id}/identify`, body),
-    trackUserSet: async (body: UpdateUserRequest, id: string | number) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/user/${id}`, body, 'put'),
-    trackUserAlias: async (body: AliasUserRequest, id: string | number) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/user/${id}/alias`, body),
-    trackUserOptIn: async (body: {}, id: string | number) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/user/${id}/opt-in`, body),
-    trackUserOptOut: async (body: {}, id: string | number) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/user/${id}/opt-out`, body),
+  /* TODO: Correct urls */
+  trackPage: (body: TrackPageRequest) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/page`, body),
+  trackClick: (body: TrackClickRequest) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/click`, body),
 
-    trackGroupIdentify: async (body: IdentifyGroupRequest, key: string | number, id: string | number) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/group/${key}/${id}/identify`, body),
-    trackGroupSet: async (body: UpdateGroupRequest, key: string | number, id: string | number) => await transport().dispatch(`${store.config.serverUrl}/projects/${store.config.projectId}/track/group/${key}/${id}`, body, 'put'),
+  trackUserIdentify: (body: IdentifyUserRequest, id: string | number) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/identify`, body),
+  trackUserSet: (body: UpdateUserRequest, id: string | number) =>
+    Transport.dispatch(`${store.config.serverUrl}/projects/track/user/${id}`, body, 'put'),
+  trackUserAlias: (body: AliasUserRequest, id: string | number) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/alias`, body),
+  trackUserOptIn: (body: {}, id: string | number) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/opt-in`, body),
+  trackUserOptOut: (body: {}, id: string | number) =>
+    Transport.sendBeacon(`${store.config.serverUrl}/projects/track/user/${id}/opt-out`, body),
+
+  trackGroupIdentify: (body: IdentifyGroupRequest, key: string | number, id: string | number) =>
+    Transport.sendBeacon(
+      `${store.config.serverUrl}/projects/track/group/${key}/${id}/identify`,
+      body
+    ),
+  trackGroupSet: (body: UpdateGroupRequest, key: string | number, id: string | number) =>
+    Transport.dispatch(`${store.config.serverUrl}/projects/track/group/${key}/${id}`, body, 'put'),
 }

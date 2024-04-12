@@ -1,32 +1,31 @@
 import unfetch from 'unfetch'
-import { getGlobalScope } from '../utils/globalScope';
+import { deleteFalsyValuesMutable } from '../utils/deleteFalsyValuesMutable'
 
 let fetch = unfetch
 if (typeof window !== 'undefined') {
-    // @ts-ignore
-    fetch = window.fetch || unfetch
+  // @ts-ignore
+  fetch = window.fetch || unfetch
 }
 
-export type Dispatcher = (url: string, body: object, method?: 'post' | 'put') => Promise<unknown>
+const headers = { 'Content-Type': 'text/plain' }
 
-export default function (): { dispatch: Dispatcher } {
-    function dispatch(url: string, body: object, method = 'post'): Promise<unknown> {
-        return unfetch(url, {
-            headers: { 'Content-Type': 'text/plain' },
-            method,
-            body: JSON.stringify(body),
-        })
+export class Transport {
+  static sendBeacon(url: string, payload: object) {
+    /* TODO: think about logger level */
+    try {
+      /* TODO: think about the middleware layer */
+      const data = JSON.stringify(deleteFalsyValuesMutable(payload))
+      navigator.sendBeacon(url, data)
+    } catch (e) {
+      console.error(e)
     }
-    return {
-        dispatch,
-    }
-};
+  }
 
-export const sendBeacon = async (url: string, payload: object) => {
-    const globalScope = getGlobalScope();
-    if (!globalScope?.navigator.sendBeacon) {
-        throw new Error('SendBeaconTransport is not supported');
-    } else {
-        navigator.sendBeacon(url, JSON.stringify(payload));
-    }
-};
+  static dispatch(url: string, body: object, method = 'post'): Promise<unknown> {
+    return unfetch(url, {
+      headers,
+      method,
+      body: JSON.stringify(body),
+    })
+  }
+}

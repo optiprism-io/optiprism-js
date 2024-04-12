@@ -1,27 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>OptiPrism JS test</title>
     <script src="./lib/scripts/optiprism-min.umd.js"></script>
-</head>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<body>
-    <a href="http://google.com" id="el" target="_blank">google</a>
-</body>
-<script>
+  <body>
+    <div class="app">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+      </nav>
+
+      <div class="test-link-block">
+        <ul>
+          <li>
+            <a href="http://google.com" id="link1" class="test-link1 test-link2" target="_blank">
+              google.com
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.shopify.com"
+              id="link2"
+              class="test-link1 test-link2"
+              target="_blank"
+            >
+              shopify.com
+            </a>
+          </li>
+          <li>
+            <a href="https://jetbrains.com" class="test-link1 test-link2"> jetbrains.com </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="test-btn-block">
+        <button class="test-btn1 test-btn2" name="test-name" id="btn">Test btn 1</button>
+        <button class="button btn" name="test-name2">Test btn 2</button>
+        <button class="btn1 test-btn2" name="test-name2">Test btn 3</button>
+        <button class="primary-btn common">Test btn 4</button>
+        <button id="btn-primary">Test btn 5</button>
+        <button name="btn-primary">Test btn 6</button>
+      </div>
+    </div>
+  </body>
+
+  <script>
     optiprism.configure({
-        serverUrl: 'https://optiprism.io',
-    });
-    optiprism.track('View Product', { 'Product Name': 'Samsung', price: 3.14 })
-    optiprism.trackOnClick(document.querySelector('#el'), 'Buy Product')
-    optiprism.page({ additionalProp: '213' })
-    optiprism.register({ stickedProp: 'some data' })
-    optiprism.user.identify('user1', '2', { country: 'UK' })
-    optiprism.user.set({ age: 27 })
-
-    optiprism.group.identify('company', '1', { companyName: 'Google' })
-</script>
-
+      token: 'test-token',
+    })
+  </script>
 </html>

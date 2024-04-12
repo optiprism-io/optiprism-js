@@ -1,7 +1,5 @@
 node_modules/
 
-.DS_Store
-
 lib/
 public/lib
 *.tsbuildinfo
@@ -19,3 +17,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 scam/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
