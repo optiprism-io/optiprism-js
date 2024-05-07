@@ -1,0 +1,207 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: OptiPrism JS SDK
+  termsOfService: https://optiprism.io/terms/
+  contact:
+    email: api@optiprism.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - description: OptiPrism API server
+    url: /
+externalDocs:
+  description: Find out more about OptiPrism api
+  url: https://dev.optiprism.io/api
+paths:
+  /v1/ingest/{projectToken}/track:
+    post:
+      summary: Track event
+      operationId: trackEvent
+      tags:
+        - auth
+      parameters:
+        - name: projectToken
+          in: path
+          description: Project Token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ 'context','event' ]
+              properties:
+                userId:
+                  type: string
+                  description: User ID
+                anonymousId:
+                  type: string
+                  description: Anonymous ID
+                timestamp:
+                  type: number
+                context:
+                  $ref: '#/components/schemas/Context'
+                event:
+                  type: string
+                  description: Event name
+                properties:
+                  type: object
+                  additionalProperties:
+                    type: [ string, integer, number, boolean, object, array ]
+                groups:
+                  type: object
+                  additionalProperties:
+                    type: string
+      responses:
+        201:
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/Internal'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /v1/ingest/{projectToken}/identify:
+    post:
+      summary: Identify event
+      operationId: identifyEvent
+      tags:
+        - auth
+      parameters:
+        - name: projectToken
+          in: path
+          description: Project Token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                timestamp:
+                  type: string
+                context:
+                  $ref: '#/components/schemas/Context'
+                group:
+                  type: string
+                  description: Group
+                id:
+                  type: string
+                  description: Group record id
+                properties:
+                  type: object
+                  additionalProperties:
+                    type: [ string, integer, number, boolean, object, array ]
+      responses:
+        204:
+          description: No Nontent
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/Internal'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Internal:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServiceUnavailable:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              enum:
+                - 1000_invalid_token
+            message:
+              type: string
+            fields:
+              type: object
+              additionalProperties:
+                type: string
+    Context:
+      type: object
+      properties:
+        library:
+          $ref: '#/components/schemas/ContextLibrary'
+        page:
+          $ref: '#/components/schemas/ContextPage'
+        userAgent:
+          type: string
+        ip:
+          type: string
+    ContextLibrary:
+      type: object
+      required: [ 'name','version' ]
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+    ContextPage:
+      type: object
+      properties:
+        path:
+          type: string
+        referrer:
+          type: string
+        search:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
