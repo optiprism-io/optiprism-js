@@ -1,28 +1,34 @@
+import { ConsolaInstance, createConsola } from 'consola'
 import { getGlobalScope } from './utils/globalScope'
 import mergeObjects from './utils/mergeObjects'
 import { UUID } from './utils/uuid'
-import { Logger, OptiLogger } from './utils/logger'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
 import { TrackContext } from './modules/trackContext'
 import { LocalStorage } from './utils/localStorage'
-import { apiClient } from './api-client/apiClient'
+import { ApiClient } from './api-client/apiClient'
 import { TrackEventRequest } from './api'
 import { Config, OptiConfig } from './utils/config'
+import { Env } from '../env'
 
 const ANONYMOUS_ID_KEY = 'opti_anonymous_id'
 
 export class OptiprismBrowser {
-  logger: Logger
+  logger: ConsolaInstance
+  apiClient: ApiClient
   config: Config
 
   constructor() {
-    this.logger = new OptiLogger()
+    this.logger = createConsola({
+      level: Env.logLevel,
+    })
+    this.apiClient = new ApiClient(this.logger)
     this.config = new OptiConfig()
   }
 
   configure(config: Config): void {
     this.config = mergeObjects(this.config, config)
+    this.logger.info('this.logger.level', this.logger.level)
 
     if (!this.config.token) {
       this.logger.error('token is required')
@@ -38,7 +44,7 @@ export class OptiprismBrowser {
   async track(event: TrackEventRequest['event'], properties?: TrackEventRequest['properties']) {
     const context = new TrackContext()
     try {
-      await apiClient.tracking.trackEvent(this.config.token, {
+      await this.apiClient.tracking.trackEvent(this.config.token, {
         anonymousId: this.config.anonymousId,
         context,
         event,
