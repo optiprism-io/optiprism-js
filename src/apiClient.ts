@@ -1,4 +1,4 @@
-import { Configuration, DefaultApi } from './api'
+import { Configuration, DefaultApi, Middleware } from './api'
 import { deleteFalsyValuesMutable } from './utils/deleteFalsyValuesMutable'
 
 /*
@@ -13,7 +13,6 @@ import { deleteFalsyValuesMutable } from './utils/deleteFalsyValuesMutable'
  * method does not provide a response.
  * */
 function sendBeaconApi(url: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response> {
-  /* TODO: think about logger level */
   /* TODO: think about the middleware layer */
   if (typeof url === 'string' && init) {
     const data = deleteFalsyValuesMutable(init.body)
@@ -25,9 +24,21 @@ function sendBeaconApi(url: URL | RequestInfo, init?: RequestInit | undefined): 
   return Promise.reject()
 }
 
+const log: Middleware = {
+  pre(context) {
+    console.info('Send Request:', context)
+    return Promise.resolve(context)
+  },
+  onError(context) {
+    console.error('Request Error:', context.error)
+    return Promise.reject()
+  },
+}
+
 const config = new Configuration({
   fetchApi: sendBeaconApi,
   basePath: 'http://localhost:8080/api',
+  middleware: [log],
 })
 
 class ApiClient {
