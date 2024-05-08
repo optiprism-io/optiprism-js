@@ -1,3 +1,4 @@
 {
+  "useSingleRequestParameter": false,
   "withoutRuntimeChecks": true
 }

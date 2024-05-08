@@ -73,8 +73,8 @@ export class DefaultApi extends runtime.BaseAPI {
     /**
      * Identify event
      */
-    async identifyEvent(requestParameters: IdentifyEventOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.identifyEventRaw(requestParameters, initOverrides);
+    async identifyEvent(projectToken: string, identifyEventRequest: IdentifyEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.identifyEventRaw({ projectToken: projectToken, identifyEventRequest: identifyEventRequest }, initOverrides);
     }
 
     /**
@@ -115,8 +115,8 @@ export class DefaultApi extends runtime.BaseAPI {
     /**
      * Track event
      */
-    async trackEvent(requestParameters: TrackEventOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.trackEventRaw(requestParameters, initOverrides);
+    async trackEvent(projectToken: string, trackEventRequest: TrackEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.trackEventRaw({ projectToken: projectToken, trackEventRequest: trackEventRequest }, initOverrides);
     }
 
 }
