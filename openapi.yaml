@@ -19,8 +19,6 @@ paths:
     post:
       summary: Track event
       operationId: trackEvent
-      tags:
-        - auth
       parameters:
         - name: projectToken
           in: path
@@ -72,8 +70,6 @@ paths:
     post:
       summary: Identify event
       operationId: identifyEvent
-      tags:
-        - auth
       parameters:
         - name: projectToken
           in: path
