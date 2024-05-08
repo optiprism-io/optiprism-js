@@ -1,7 +1,8 @@
 import { Logger as LoggerType, PropertyName, PropertyValue } from './types'
-import { trackService } from './transports'
 import { Logger } from './utils/logger'
 import { getTrackContext } from './modules/getTrackContext'
+
+const trackService: any = () => {}
 
 const logTextMap = {
   setOnce: 'group setOnce',
