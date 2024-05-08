@@ -1,53 +1,45 @@
-import { Config, Group as GroupType, Logger as LoggerType, User as UserType } from './types'
-
 import { getGlobalScope } from './utils/globalScope'
 import mergeObjects from './utils/mergeObjects'
-import { store } from './store'
 import { UUID } from './utils/uuid'
-import { Logger } from './utils/logger'
-
-import { Group } from './group'
-import { User } from './user'
+import { Logger, OptiLogger } from './utils/logger'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
 import { TrackContext } from './modules/trackContext'
 import { LocalStorage } from './utils/localStorage'
 import { apiClient } from './api-client/apiClient'
 import { TrackEventRequest } from './api'
+import { Config, OptiConfig } from './utils/config'
 
 const ANONYMOUS_ID_KEY = 'opti_anonymous_id'
 
 export class OptiprismBrowser {
-  user: UserType
-  group: GroupType
-  logger: LoggerType
+  logger: Logger
+  config: Config
 
   constructor() {
-    this.logger = new Logger()
-    this.group = new Group()
-    this.user = new User()
+    this.logger = new OptiLogger()
+    this.config = new OptiConfig()
   }
 
   configure(config: Config): void {
-    if (!config.token) this.logger.error('token is required')
+    this.config = mergeObjects(this.config, config)
+
+    if (!this.config.token) {
+      this.logger.error('token is required')
+      return
+    }
 
     this.initAnonymousId()
 
-    if (!store.deviceId) {
-      store.deviceId = UUID()
-    }
-
-    store.config = mergeObjects(store.config, config)
-
-    if (config.autotrack === false) return
+    if (this.config.autotrack === false) return
     this.enableAutoTrack()
   }
 
   async track(event: TrackEventRequest['event'], properties?: TrackEventRequest['properties']) {
     const context = new TrackContext()
     try {
-      await apiClient.tracking.trackEvent(store.config.token, {
-        anonymousId: store.anonymousId,
+      await apiClient.tracking.trackEvent(this.config.token, {
+        anonymousId: this.config.anonymousId,
         context,
         event,
         properties,
@@ -63,8 +55,7 @@ export class OptiprismBrowser {
   }
 
   private initAnonymousId() {
-    const anonymousId = LocalStorage.getOrSet(ANONYMOUS_ID_KEY, UUID())
-    store.anonymousId = anonymousId
+    this.config.anonymousId = LocalStorage.getOrSet(ANONYMOUS_ID_KEY, UUID())
   }
 }
 
