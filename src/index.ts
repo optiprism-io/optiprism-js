@@ -4,7 +4,7 @@ import mergeObjects from './utils/mergeObjects'
 import { UUID } from './utils/uuid'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
-import { TrackContext } from './modules/trackContext'
+import { Context } from './modules/context'
 import { LocalStorage } from './modules/localStorage'
 import { ApiClient } from './api-client/apiClient'
 import { TrackEventRequest } from './api'
@@ -42,7 +42,7 @@ export class OptiprismBrowser {
   }
 
   async track(event: TrackEventRequest['event'], properties?: TrackEventRequest['properties']) {
-    const context = new TrackContext()
+    const context = new Context()
     try {
       await this.apiClient.tracking.trackEvent(this.config.token, {
         anonymousId: this.config.anonymousId,

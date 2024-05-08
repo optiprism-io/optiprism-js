@@ -1,10 +1,10 @@
-import { Context } from '../api'
+import { Context as IContext } from '../api'
 
-export class TrackContext implements Context {
-  library?: Context['library']
-  page?: Context['page']
-  userAgent?: Context['userAgent']
-  ip?: Context['ip']
+export class Context implements IContext {
+  library?: IContext['library']
+  page?: IContext['page']
+  userAgent?: IContext['userAgent']
+  ip?: IContext['ip']
 
   constructor() {
     this.userAgent = navigator.userAgent
