@@ -17,12 +17,7 @@
     "typecheck": "tsc -p ./tsconfig.json",
     "version-file": "node -p \"'export const VERSION = \\'' + require('./package.json').version + '\\';'\" > src/version.ts"
   },
-  "dependencies": {
-    "node-fetch": "^3.3.0",
-    "node-static": "^0.7.11",
-    "tslib": "^2.3.1",
-    "unfetch": "^4.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.4",
     "@playwright/test": "^1.43.0",
@@ -31,9 +26,8 @@
     "@types/node": "^20.12.7",
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "http-server": "^14.1.1",
-    "isomorphic-fetch": "^3.0.0",
     "morgan": "^1.10.0",
+    "node-static": "^0.7.11",
     "prettier": "^3.2.5",
     "rollup": "^4.14.1",
     "rollup-plugin-execute": "^1.1.1",

@@ -1,10 +1,4 @@
-import {
-  Config,
-  Group as GroupType,
-  Logger as LoggerType,
-  TrackOptions,
-  User as UserType,
-} from './types'
+import { Config, Group as GroupType, Logger as LoggerType, User as UserType } from './types'
 
 import { getGlobalScope } from './utils/globalScope'
 import mergeObjects from './utils/mergeObjects'
@@ -16,7 +10,7 @@ import { Group } from './group'
 import { User } from './user'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
-import { EventName, IEventType } from './types/event'
+import { EventName } from './types/event'
 import { TrackContext } from './modules/trackContext'
 import { LocalStorage } from './utils/localStorage'
 import { apiClient } from './api-client/apiClient'
@@ -49,20 +43,14 @@ export class OptiprismBrowser {
     this.enableAutoTrack()
   }
 
-  async track(
-    eventName: EventName,
-    eventType: IEventType,
-    properties?: any,
-    options?: TrackOptions
-  ) {
+  async track(event: EventName, properties?: { [p: string]: any }) {
     const context = new TrackContext()
     try {
       await apiClient.tracking.trackEvent({
         trackEventRequest: {
           anonymousId: store.anonymousId,
           context,
-          event: eventName,
-          // type: eventType,
+          event,
           properties,
         },
         projectToken: store.config.token,
