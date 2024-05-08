@@ -1,7 +1,7 @@
 import { Logger as LoggerType, PropertyName, PropertyValue } from './types'
 import { store } from './store'
 import { Logger } from './utils/logger'
-import { getTrackContext } from './modules/getTrackContext'
+import { TrackContext } from './modules/trackContext'
 
 const trackService: any = () => {}
 
@@ -28,7 +28,7 @@ export class User {
     try {
       const res = await trackService.trackUserSet(
         {
-          context: getTrackContext(),
+          context: new TrackContext(),
           operations: data,
         },
         store.userId || store.anonymousId
@@ -42,7 +42,7 @@ export class User {
     try {
       const res = await trackService.trackUserSet(
         {
-          context: getTrackContext(),
+          context: new TrackContext(),
           operations: data,
         },
         store.userId || store.anonymousId
@@ -58,7 +58,7 @@ export class User {
     try {
       const res = await trackService.trackUserIdentify(
         {
-          context: getTrackContext(),
+          context: new TrackContext(),
           properties: props,
         },
         userId
@@ -72,7 +72,7 @@ export class User {
     try {
       const res = await trackService.trackUserAlias(
         {
-          context: getTrackContext(),
+          context: new TrackContext(),
           alias: newId,
         },
         oldId || store.userId || store.anonymousId

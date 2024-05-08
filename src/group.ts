@@ -1,6 +1,6 @@
 import { Logger as LoggerType, PropertyName, PropertyValue } from './types'
 import { Logger } from './utils/logger'
-import { getTrackContext } from './modules/getTrackContext'
+import { TrackContext } from './modules/trackContext'
 
 const trackService: any = () => {}
 
@@ -23,7 +23,7 @@ export class Group {
     try {
       const res = await trackService.trackGroupIdentify(
         {
-          context: getTrackContext(),
+          context: new TrackContext(),
           properties: props,
         },
         groupType,
@@ -38,7 +38,7 @@ export class Group {
     try {
       const res = await trackService.trackGroupSet(
         {
-          context: getTrackContext(),
+          context: new TrackContext(),
           operations: data,
         },
         groupType,
@@ -53,7 +53,7 @@ export class Group {
     try {
       const res = await trackService.trackGroupSet(
         {
-          context: getTrackContext(),
+          context: new TrackContext(),
           operations: data,
         },
         groupType,

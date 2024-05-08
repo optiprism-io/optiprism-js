@@ -17,7 +17,7 @@ import { User } from './user'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
 import { EventName, IEventType } from './types/event'
-import { getTrackContext } from './modules/getTrackContext'
+import { TrackContext } from './modules/trackContext'
 import { LocalStorage } from './utils/localStorage'
 import { apiClient } from './api/apiClient'
 
@@ -55,14 +55,14 @@ export class OptiprismBrowser {
     properties?: any,
     options?: TrackOptions
   ) {
-    const context = getTrackContext()
+    const context = new TrackContext()
     try {
       await apiClient.auth.trackEvent({
         trackEventRequest: {
           anonymousId: store.anonymousId,
           context,
           event: eventName,
-          type: eventType,
+          // type: eventType,
           properties,
         },
         projectToken: store.config.token,
