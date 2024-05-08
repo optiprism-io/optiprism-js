@@ -31,7 +31,7 @@ export class OptiprismBrowser {
   configure(config: Config): void {
     if (!config.token) this.logger.error('token is required')
 
-    this.__initAnonymousId()
+    this.initAnonymousId()
 
     if (!store.deviceId) {
       store.deviceId = UUID()
@@ -57,12 +57,12 @@ export class OptiprismBrowser {
     }
   }
 
-  enableAutoTrack() {
+  private enableAutoTrack() {
     trackPageLoad(this)
     trackElementsClick(this)
   }
 
-  __initAnonymousId() {
+  private initAnonymousId() {
     const anonymousId = LocalStorage.getOrSet(ANONYMOUS_ID_KEY, UUID())
     store.anonymousId = anonymousId
   }
