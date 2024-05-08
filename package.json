@@ -17,7 +17,9 @@
     "typecheck": "tsc -p ./tsconfig.json",
     "version-file": "node -p \"'export const VERSION = \\'' + require('./package.json').version + '\\';'\" > src/version.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "consola": "^3.2.3"
+  },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.4",
     "@playwright/test": "^1.43.0",
