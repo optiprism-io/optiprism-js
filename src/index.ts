@@ -10,10 +10,10 @@ import { Group } from './group'
 import { User } from './user'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
-import { EventName } from './types/event'
 import { TrackContext } from './modules/trackContext'
 import { LocalStorage } from './utils/localStorage'
 import { apiClient } from './api-client/apiClient'
+import { TrackEventRequest } from './api'
 
 const ANONYMOUS_ID_KEY = 'opti_anonymous_id'
 
@@ -43,17 +43,14 @@ export class OptiprismBrowser {
     this.enableAutoTrack()
   }
 
-  async track(event: EventName, properties?: { [p: string]: any }) {
+  async track(event: TrackEventRequest['event'], properties?: TrackEventRequest['properties']) {
     const context = new TrackContext()
     try {
-      await apiClient.tracking.trackEvent({
-        trackEventRequest: {
-          anonymousId: store.anonymousId,
-          context,
-          event,
-          properties,
-        },
-        projectToken: store.config.token,
+      await apiClient.tracking.trackEvent(store.config.token, {
+        anonymousId: store.anonymousId,
+        context,
+        event,
+        properties,
       })
     } catch (e) {
       this.logger.error('track', JSON.stringify(e))
