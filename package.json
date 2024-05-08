@@ -23,6 +23,7 @@
     "unfetch": "^4.2.0"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.4",
     "@playwright/test": "^1.43.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
