@@ -1,4 +1,4 @@
-import { Event, EventType } from '../types/event'
+import { Event } from '../types/event'
 import { OptiprismBrowser } from '../index'
 
 const SELECTORS = ['button', 'a']
@@ -9,7 +9,7 @@ export function trackElementsClick(ob: OptiprismBrowser) {
       const el = event.target as HTMLElement
       const properties = new ElementProperties(el)
 
-      ob.track(Event.click, EventType.track, properties)
+      ob.track(Event.click, properties)
     })
   }
 
