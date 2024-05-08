@@ -1,4 +1,5 @@
-apis/AuthApi.ts
+.openapi-generator-ignore
+apis/DefaultApi.ts
 apis/index.ts
 index.ts
 models/index.ts

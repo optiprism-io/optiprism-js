@@ -33,7 +33,7 @@ export interface TrackEventOperationRequest {
 /**
  * 
  */
-export class AuthApi extends runtime.BaseAPI {
+export class DefaultApi extends runtime.BaseAPI {
 
     /**
      * Identify event
