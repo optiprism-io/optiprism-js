@@ -1,6 +1,4 @@
-import { Configuration, DefaultApi, Middleware } from './api'
-import { deleteFalsyValuesMutable } from './utils/deleteFalsyValuesMutable'
-import { Env } from '../env'
+import { deleteFalsyValuesMutable } from '../utils/deleteFalsyValuesMutable'
 
 /*
  * The sendBeaconApi function is a custom fetch API function that uses
@@ -13,7 +11,10 @@ import { Env } from '../env'
  * indicating a successful request. This is because the navigator.sendBeacon
  * method does not provide a response.
  * */
-function sendBeaconApi(url: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response> {
+export function sendBeaconApi(
+  url: URL | RequestInfo,
+  init?: RequestInit | undefined
+): Promise<Response> {
   /* TODO: think about the middleware layer */
   if (typeof url === 'string' && init) {
     const data = deleteFalsyValuesMutable(init.body)
@@ -24,32 +25,3 @@ function sendBeaconApi(url: URL | RequestInfo, init?: RequestInit | undefined): 
   }
   return Promise.reject()
 }
-
-const log: Middleware = {
-  pre(context) {
-    console.info('Send Request:', context)
-    return Promise.resolve(context)
-  },
-  onError(context) {
-    console.error('Request Error:', context.error)
-    return Promise.reject()
-  },
-}
-
-const config = new Configuration({
-  fetchApi: sendBeaconApi,
-  basePath: Env.basePath,
-  middleware: [log],
-})
-
-class ApiClient {
-  tracking: DefaultApi
-
-  constructor(configuration?: Configuration) {
-    this.tracking = new DefaultApi(configuration)
-  }
-}
-
-const apiClient = new ApiClient(config)
-
-export { apiClient }

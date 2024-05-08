@@ -19,7 +19,7 @@ import { trackElementsClick } from './modules/trackElementsClick'
 import { EventName, IEventType } from './types/event'
 import { TrackContext } from './modules/trackContext'
 import { LocalStorage } from './utils/localStorage'
-import { apiClient } from './apiClient'
+import { apiClient } from './api-client/apiClient'
 
 const ANONYMOUS_ID_KEY = 'opti_anonymous_id'
 
