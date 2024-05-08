@@ -1,5 +1,6 @@
 import { Configuration, DefaultApi, Middleware } from './api'
 import { deleteFalsyValuesMutable } from './utils/deleteFalsyValuesMutable'
+import { Env } from '../env'
 
 /*
  * The sendBeaconApi function is a custom fetch API function that uses
@@ -37,7 +38,7 @@ const log: Middleware = {
 
 const config = new Configuration({
   fetchApi: sendBeaconApi,
-  basePath: 'http://localhost:8080/api',
+  basePath: Env.basePath,
   middleware: [log],
 })
 
