@@ -19,7 +19,7 @@ import { trackElementsClick } from './modules/trackElementsClick'
 import { EventName, IEventType } from './types/event'
 import { TrackContext } from './modules/trackContext'
 import { LocalStorage } from './utils/localStorage'
-import { apiClient } from './api/apiClient'
+import { apiClient } from './apiClient'
 
 const ANONYMOUS_ID_KEY = 'opti_anonymous_id'
 
@@ -57,7 +57,7 @@ export class OptiprismBrowser {
   ) {
     const context = new TrackContext()
     try {
-      await apiClient.auth.trackEvent({
+      await apiClient.tracking.trackEvent({
         trackEventRequest: {
           anonymousId: store.anonymousId,
           context,

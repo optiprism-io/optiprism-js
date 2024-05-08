@@ -1,7 +1,5 @@
-/* This file is generated manually */
-import { AuthApi } from './apis/index'
-import { Configuration } from './runtime'
-import { deleteFalsyValuesMutable } from '../utils/deleteFalsyValuesMutable'
+import { Configuration, DefaultApi } from './api'
+import { deleteFalsyValuesMutable } from './utils/deleteFalsyValuesMutable'
 
 /*
  * The sendBeaconApi function is a custom fetch API function that uses
@@ -33,10 +31,10 @@ const config = new Configuration({
 })
 
 class ApiClient {
-  auth: AuthApi
+  tracking: DefaultApi
 
   constructor(configuration?: Configuration) {
-    this.auth = new AuthApi(configuration)
+    this.tracking = new DefaultApi(configuration)
   }
 }
 
