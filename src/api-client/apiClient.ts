@@ -1,14 +1,20 @@
+import { ConsolaInstance } from 'consola'
 import { Configuration, DefaultApi } from '../api'
-import { config } from './config'
+import { sendBeaconApi } from './sendBeaconApi'
+import { Env } from '../../env'
+import { LoggerMiddleware } from './middlewares'
 
-class ApiClient {
+export class ApiClient {
+  config: Configuration
   tracking: DefaultApi
 
-  constructor(configuration?: Configuration) {
-    this.tracking = new DefaultApi(configuration)
+  constructor(logger: ConsolaInstance) {
+    this.config = new Configuration({
+      fetchApi: sendBeaconApi,
+      basePath: Env.basePath,
+      middleware: [new LoggerMiddleware(logger)],
+    })
+
+    this.tracking = new DefaultApi(this.config)
   }
 }
-
-const apiClient = new ApiClient(config)
-
-export { apiClient }
