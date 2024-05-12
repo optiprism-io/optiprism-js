@@ -1,4 +1,4 @@
-import { ConsolaInstance, createConsola } from 'consola'
+import { ConsolaInstance, createConsola as createLogger } from 'consola'
 import { getGlobalScope } from './utils/globalScope'
 import mergeObjects from './utils/mergeObjects'
 import { UUID } from './utils/uuid'
@@ -10,30 +10,37 @@ import { ApiClient } from './api-client/apiClient'
 import { TrackEventRequest } from './api'
 import { Config, OptiConfig } from './modules/config'
 import { Env } from '../env'
+import { User } from './modules/user'
+import { Group } from './modules/group'
 
 const ANONYMOUS_ID_KEY = 'opti_anonymous_id'
 
 export class OptiprismBrowser {
-  logger: ConsolaInstance
-  apiClient: ApiClient
+  readonly __logger: ConsolaInstance
+  readonly __apiClient: ApiClient
   config: Config
+  user?: User
+  group?: Group
 
   constructor() {
-    this.logger = createConsola({
+    this.__logger = createLogger({
       level: Env.logLevel,
     })
-    this.apiClient = new ApiClient(this.logger)
+    this.__apiClient = new ApiClient(this.__logger)
     this.config = new OptiConfig()
   }
 
   configure(config: Config): void {
     this.config = mergeObjects(this.config, config)
-    this.logger.info('this.logger.level', this.logger.level)
+    this.__logger.info('this.logger.level', this.__logger.level)
 
     if (!this.config.token) {
-      this.logger.error('token is required')
+      this.__logger.error('token is required')
       return
     }
+
+    this.user = new User(this.__apiClient, this.config.token)
+    this.group = new Group(this.__apiClient, this.config.token)
 
     this.initAnonymousId()
 
@@ -44,14 +51,16 @@ export class OptiprismBrowser {
   async track(event: TrackEventRequest['event'], properties?: TrackEventRequest['properties']) {
     const context = new Context()
     try {
-      await this.apiClient.tracking.trackEvent(this.config.token, {
+      await this.__apiClient.tracking.trackEvent(this.config.token, {
         anonymousId: this.config.anonymousId,
         context,
         event,
         properties,
+        userId: this.user?.userId,
+        groups: this.group?.groups,
       })
     } catch (e) {
-      this.logger.error('track', JSON.stringify(e))
+      this.__logger.error('track', JSON.stringify(e))
     }
   }
 
