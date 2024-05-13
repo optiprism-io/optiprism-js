@@ -22,6 +22,9 @@
     "resolveJsonModule": true,
     "strictBindCallApply": true,
     "types": ["node", "vitest/jsdom"],
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "baseUrl": ".",
     "esModuleInterop": true,
     "noEmit": true,
