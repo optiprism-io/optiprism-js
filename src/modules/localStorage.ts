@@ -8,7 +8,7 @@ export class LocalStorage {
   }
 
   static getOrSet(key: string, value: string): string {
-    let existingValue = this.get(key)
+    const existingValue = this.get(key)
     if (existingValue === null) {
       this.set(key, value)
       return value

@@ -1,5 +1,6 @@
 import { ApiClient } from '../api-client/apiClient'
 import { Context } from './context'
+import { IdentifyEventRequest } from '../api'
 
 const USER = 'user'
 
@@ -13,7 +14,7 @@ export class User {
     this.token = token
   }
 
-  async identify(id: string, properties?: Record<string, any>) {
+  async identify(id: string, properties?: IdentifyEventRequest['properties']) {
     const context = new Context()
 
     this.userId = id
