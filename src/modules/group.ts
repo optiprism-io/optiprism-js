@@ -1,5 +1,6 @@
 import { ApiClient } from '../api-client/apiClient'
 import { Context } from './context'
+import { IdentifyEventRequest } from '../api'
 
 export class Group {
   private readonly apiClient: ApiClient
@@ -12,7 +13,7 @@ export class Group {
     this.groups = {}
   }
 
-  async identify(group: string, id: string, properties?: Record<string, any>) {
+  async identify(group: string, id: string, properties?: IdentifyEventRequest['properties']) {
     const context = new Context()
 
     this.groups[group] = id
