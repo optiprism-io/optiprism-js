@@ -1,6 +1,5 @@
 import { ConsolaInstance, createConsola as createLogger } from 'consola'
 import { getGlobalScope } from './utils/globalScope'
-import mergeObjects from './utils/mergeObjects'
 import { UUID } from './utils/uuid'
 import { trackPageLoad } from './modules/trackPageLoad'
 import { trackElementsClick } from './modules/trackElementsClick'
@@ -31,7 +30,7 @@ export class OptiprismBrowser {
   }
 
   configure(config: Config): void {
-    this.config = mergeObjects(this.config, config)
+    this.config = Object.assign(this.config, config)
     this.__logger.info('this.logger.level', this.__logger.level)
 
     if (!this.config.token) {
@@ -78,6 +77,6 @@ export const createInstance = () => new OptiprismBrowser()
 
 const globalScope = getGlobalScope()
 if (globalScope) {
-  // @ts-ignore
+  // @ts-expect-error global scope
   globalScope.optiprism = createInstance()
 }

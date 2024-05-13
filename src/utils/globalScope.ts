@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 /* Only file allowed to access to globalThis, window, self */
 
 export const getGlobalScope = (): typeof globalThis | undefined => {
