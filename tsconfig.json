@@ -21,7 +21,7 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "strictBindCallApply": true,
-    "types": ["node"],
+    "types": ["node", "vitest/jsdom"],
     "baseUrl": ".",
     "esModuleInterop": true,
     "noEmit": true,
