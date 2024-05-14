@@ -1,15 +1,4 @@
-import { OptiprismBrowser } from '../index'
-
-const EVENT_NAME_PAGE = 'Page'
-
-export function trackPageLoad(ob: OptiprismBrowser) {
-  window.onload = () => {
-    const properties = new PageProperties()
-    ob.track(EVENT_NAME_PAGE, properties)
-  }
-}
-
-class PageProperties {
+export class PageProperties {
   ['Page Path']: string;
   ['Page Referer']: string;
   ['Page Search']: string;
