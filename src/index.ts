@@ -1,8 +1,8 @@
 import { ConsolaInstance, createConsola as createLogger } from 'consola'
 import { getGlobalScope } from './utils/globalScope'
 import { UUID } from './utils/uuid'
-import { trackPageLoad } from './modules/trackPageLoad'
-import { trackElementsClick } from './modules/trackElementsClick'
+import { PageProperties } from './modules/pageProperties'
+import { ElementProperties } from './modules/elementProperties'
 import { Context } from './modules/context'
 import { LocalStorage } from './modules/localStorage'
 import { ApiClient } from './api-client/apiClient'
@@ -49,23 +49,46 @@ export class OptiprismBrowser {
 
   async track(event: TrackEventRequest['event'], properties?: TrackEventRequest['properties']) {
     const context = new Context()
-    try {
-      await this.__apiClient.tracking.trackEvent(this.config.token, {
-        anonymousId: this.config.anonymousId,
-        context,
-        event,
-        properties,
-        userId: this.user?.userId,
-        groups: this.group?.groups,
-      })
-    } catch (e) {
-      this.__logger.error('track', JSON.stringify(e))
+
+    await this.__apiClient.tracking.trackEvent(this.config.token, {
+      anonymousId: this.config.anonymousId,
+      context,
+      event,
+      properties,
+      userId: this.user?.userId,
+      groups: this.group?.groups,
+    })
+  }
+
+  private trackPageLoad() {
+    const EVENT_NAME_PAGE = 'Page'
+
+    window.onload = () => {
+      const properties = new PageProperties()
+      this.track(EVENT_NAME_PAGE, properties)
     }
   }
 
+  private trackElementsClick() {
+    const EVENT_NAME_CLICK = 'Click'
+    const SELECTORS = ['button', 'a']
+
+    const trackClickEvent = (element: Element) => {
+      element.addEventListener('click', event => {
+        const el = event.target as HTMLElement
+        const properties = new ElementProperties(el)
+
+        this.track(EVENT_NAME_CLICK, properties)
+      })
+    }
+
+    const elements = document.querySelectorAll(SELECTORS.join(','))
+    elements.forEach(trackClickEvent)
+  }
+
   private enableAutoTrack() {
-    trackPageLoad(this)
-    trackElementsClick(this)
+    this.trackPageLoad()
+    this.trackElementsClick()
   }
 
   private initAnonymousId() {
