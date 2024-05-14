@@ -1,4 +1,5 @@
 import { Context as IContext } from '../api'
+import { name, version } from '../../package.json'
 
 export class Context implements IContext {
   library?: IContext['library']
@@ -7,7 +8,10 @@ export class Context implements IContext {
   ip?: IContext['ip']
 
   constructor() {
-    this.userAgent = navigator.userAgent
+    this.library = {
+      name,
+      version,
+    }
     this.page = {
       path: location.pathname,
       referrer: document.referrer,
@@ -15,6 +19,7 @@ export class Context implements IContext {
       title: document.title,
       url: location.href,
     }
+    this.userAgent = navigator.userAgent
 
     // locale:
     //   navigator.languages && navigator.languages.length
