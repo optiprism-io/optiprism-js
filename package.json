@@ -1,5 +1,5 @@
 {
-  "name": "optiprism_analytics_browser",
+  "name": "optiprism-browser",
   "version": "0.0.1",
   "type": "module",
   "sideEffects": false,
@@ -16,8 +16,7 @@
     "fmt": "prettier ./src --write",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "typecheck": "tsc -p ./tsconfig.json",
-    "version-file": "node -p \"'export const VERSION = \\'' + require('./package.json').version + '\\';'\" > src/version.ts"
+    "typecheck": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
     "consola": "^3.2.3"
