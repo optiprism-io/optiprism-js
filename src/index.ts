@@ -88,7 +88,7 @@ export class OptiprismBrowser {
   }
 
   private initAnonymousId() {
-    this.config.anonymousId = LocalStorage.getOrSet(ANONYMOUS_ID_KEY, UUID())
+    this.config.anonymousId = LocalStorage.getOrSet(ANONYMOUS_ID_KEY, UUID()) as string
   }
 }
 
