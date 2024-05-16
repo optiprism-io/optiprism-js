@@ -1,13 +1,13 @@
 export class LocalStorage {
-  static get(key: string): string | null {
-    return window.localStorage.getItem(key)
+  static get(key: string): unknown | null {
+    return JSON.parse(window.localStorage.getItem(key) || String(null))
   }
 
-  static set(key: string, value: string): void {
-    window.localStorage.setItem(key, value)
+  static set(key: string, value: unknown): void {
+    window.localStorage.setItem(key, JSON.stringify(value))
   }
 
-  static getOrSet(key: string, value: string): string {
+  static getOrSet(key: string, value: string): unknown {
     const existingValue = this.get(key)
     if (existingValue === null) {
       this.set(key, value)
