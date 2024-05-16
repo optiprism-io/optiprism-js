@@ -50,7 +50,7 @@ export class OptiprismBrowser {
     const context = new Context()
 
     await this.__apiClient.tracking.trackEvent(this.config.token, {
-      anonymousId: this.config.anonymousId,
+      anonymousId: this.user?.userId ? undefined : this.config.anonymousId,
       context,
       event,
       properties,
