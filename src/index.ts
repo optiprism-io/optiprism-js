@@ -11,8 +11,7 @@ import { Config, OptiConfig } from './modules/config'
 import { Env } from '../env'
 import { User } from './modules/user'
 import { Group } from './modules/group'
-
-const ANONYMOUS_ID_KEY = 'opti_anonymous_id'
+import { ANONYMOUS_ID_KEY, EVENT_NAME_CLICK, EVENT_NAME_PAGE } from '@/constants'
 
 export class OptiprismBrowser {
   readonly __logger: ConsolaInstance
@@ -61,8 +60,6 @@ export class OptiprismBrowser {
   }
 
   private trackPageLoad() {
-    const EVENT_NAME_PAGE = 'Page'
-
     window.onload = () => {
       const properties = new PageProperties()
       this.track(EVENT_NAME_PAGE, properties)
@@ -70,7 +67,6 @@ export class OptiprismBrowser {
   }
 
   private trackElementsClick() {
-    const EVENT_NAME_CLICK = 'Click'
     const SELECTORS = ['button', 'a']
 
     const trackClickEvent = (element: Element) => {
