@@ -1,8 +1,8 @@
 import { ApiClient } from '../api-client/apiClient'
 import { Context } from './context'
 import { IdentifyEventRequest } from '../api'
-
-const USER = 'user'
+import { USER_GROUP } from '@/constants'
+import { LocalStorage } from '@/modules/localStorage'
 
 export class User {
   private readonly apiClient: ApiClient
@@ -21,7 +21,7 @@ export class User {
 
     await this.apiClient.tracking.identifyEvent(this.token, {
       context,
-      group: USER,
+      group: USER_GROUP,
       id,
       properties,
     })
