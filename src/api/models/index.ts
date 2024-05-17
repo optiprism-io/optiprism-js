@@ -30,6 +30,12 @@ export interface Context {
      * @memberof Context
      */
     ip?: string;
+    /**
+     * 
+     * @type {ContextUTM}
+     * @memberof Context
+     */
+    campaign?: ContextUTM;
 }
 /**
  * 
@@ -86,6 +92,43 @@ export interface ContextPage {
      * @memberof ContextPage
      */
     url?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ContextUTM
+ */
+export interface ContextUTM {
+    /**
+     * 
+     * @type {string}
+     * @memberof ContextUTM
+     */
+    source: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContextUTM
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContextUTM
+     */
+    medium?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContextUTM
+     */
+    term?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContextUTM
+     */
+    content?: string;
 }
 /**
  * 
