@@ -7,3 +7,9 @@ export const EVENT_NAME_PAGE = 'Page'
 export const EVENT_NAME_CLICK = 'Click'
 
 export const USER_GROUP = 'user'
+
+export const UTM_SOURCE = 'utm_source'
+export const UTM_MEDIUM = 'utm_medium'
+export const UTM_TERM = 'utm_term'
+export const UTM_CONTENT = 'utm_content'
+export const UTM_NAME = 'utm_campaign'
