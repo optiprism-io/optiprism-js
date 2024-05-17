@@ -32,7 +32,7 @@ paths:
           application/json:
             schema:
               type: object
-              required: [ 'context','event' ]
+              required: ['context', 'event']
               properties:
                 userId:
                   type: string
@@ -50,7 +50,7 @@ paths:
                 properties:
                   type: object
                   additionalProperties:
-                    type: [ string, integer, number, boolean, object, array ]
+                    type: [string, integer, number, boolean, object, array]
                 groups:
                   type: object
                   additionalProperties:
@@ -97,7 +97,7 @@ paths:
                 properties:
                   type: object
                   additionalProperties:
-                    type: [ string, integer, number, boolean, object, array ]
+                    type: [string, integer, number, boolean, object, array]
       responses:
         204:
           description: No Nontent
@@ -180,9 +180,11 @@ components:
           type: string
         ip:
           type: string
+        campaign:
+          $ref: '#/components/schemas/ContextUTM'
     ContextLibrary:
       type: object
-      required: [ 'name','version' ]
+      required: ['name', 'version']
       properties:
         name:
           type: string
@@ -200,4 +202,18 @@ components:
         title:
           type: string
         url:
+          type: string
+    ContextUTM:
+      type: object
+      required: ['source']
+      properties:
+        source:
+          type: string
+        name:
+          type: string
+        medium:
+          type: string
+        term:
+          type: string
+        content:
           type: string
