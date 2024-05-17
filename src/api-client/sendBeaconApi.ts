@@ -1,4 +1,4 @@
-import { deleteFalsyValuesMutable } from '../utils/deleteFalsyValuesMutable'
+import { cleanEmptyValues } from '../utils/cleanEmptyValues'
 
 /*
  * The sendBeaconApi function is a custom fetch API function that uses
@@ -15,10 +15,11 @@ export function sendBeaconApi(
   url: URL | RequestInfo,
   init?: RequestInit | undefined
 ): Promise<Response> {
-  /* TODO: think about the middleware layer */
-  if (typeof url === 'string' && init) {
-    const data = deleteFalsyValuesMutable(init.body)
-    const result = navigator.sendBeacon(url, data)
+  if (typeof url === 'string' && typeof init?.body === 'string') {
+    /* TODO: think about the middleware layer */
+    const jsonBody = JSON.parse(init.body)
+    const data = cleanEmptyValues(jsonBody)
+    const result = navigator.sendBeacon(url, JSON.stringify(data))
     if (result) {
       return Promise.resolve(new Response(null, { status: 200 }))
     }
