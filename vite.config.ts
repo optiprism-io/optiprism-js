@@ -8,7 +8,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  publicDir: './../../public',
+  publicDir: './../../dist',
   test: {
     root: 'src',
     environment: 'jsdom',

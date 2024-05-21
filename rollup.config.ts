@@ -8,7 +8,7 @@ export default defineConfig({
   input: 'src/index.ts',
   output: {
     name: 'optiprism',
-    file: 'public/lib/scripts/optiprism-min.umd.js',
+    file: 'dist/optiprism-min.umd.js',
     format: 'umd',
   },
   plugins: [
