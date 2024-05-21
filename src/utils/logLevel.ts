@@ -8,3 +8,7 @@ export enum LogLevel {
   Silent = -999,
   Verbose = 999,
 }
+
+export const LogLevelName = Object.fromEntries(
+  Object.entries(LogLevel).map(([key, value]) => [value, key])
+)
