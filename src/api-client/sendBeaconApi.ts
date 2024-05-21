@@ -1,5 +1,3 @@
-import { cleanEmptyValues } from '../utils/cleanEmptyValues'
-
 /*
  * The sendBeaconApi function is a custom fetch API function that uses
  * the navigator.sendBeacon method to send HTTP requests.
@@ -15,11 +13,8 @@ export function sendBeaconApi(
   url: URL | RequestInfo,
   init?: RequestInit | undefined
 ): Promise<Response> {
-  if (typeof url === 'string' && typeof init?.body === 'string') {
-    /* TODO: think about the middleware layer */
-    const jsonBody = JSON.parse(init.body)
-    const data = cleanEmptyValues(jsonBody)
-    const result = navigator.sendBeacon(url, JSON.stringify(data))
+  if (typeof url === 'string' && init) {
+    const result = navigator.sendBeacon(url, JSON.stringify(init.body))
     if (result) {
       return Promise.resolve(new Response(null, { status: 200 }))
     }
