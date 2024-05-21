@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Optiprism Browser | External links</title>
+    <script src="./optiprism-min.umd.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" href="favicon.svg" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="min-h-screen">
+    <header class="grid grid-cols-[1fr_7fr_1fr] items-center justify-between p-6 px-8">
+      <img
+        class="flex h-8"
+        src="https://optiprism.io/assets/img/logo_black.svg"
+        alt="optiprism-logo"
+      />
+      <nav class="flex justify-center w-auto gap-x-12">
+        <a href="./index.html" class="font-semibold text-white"> Home </a>
+        <a
+          href="./external-links.html"
+          class="font-semibold text-white underline underline-offset-8"
+        >
+          External links
+        </a>
+      </nav>
+      <a
+        href="https://optiprism.io/"
+        class="flex justify-end font-semibold text-white"
+        target="_blank"
+      >
+        Landing <span>&rarr;</span>
+      </a>
+    </header>
+
+    <div class="mx-auto flex justify-center gap-2 max-w-2xl py-56">
+      <a
+        href="https://google.com"
+        class="rounded-md bg-indigo-950 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-800"
+        target="_blank"
+      >
+        google.com
+      </a>
+      <a
+        href="https://jetbrains.com"
+        class="rounded-md bg-indigo-950 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-800"
+        target="_blank"
+      >
+        jetbrains.com
+      </a>
+      <a
+        href="https://www.shopify.com"
+        class="rounded-md bg-indigo-950 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-800"
+        target="_blank"
+      >
+        shopify.com
+      </a>
+    </div>
+
+    <div class="absolute end-6 bottom-6 flex gap-1">
+      <span
+        class="rounded-md cursor-pointer bg-indigo-950 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-800"
+        data-set-token
+      >
+        Set Random Token
+      </span>
+      <span
+        class="rounded-md cursor-pointer bg-indigo-950 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-800"
+        data-clear-storage
+      >
+        Clear Storage Data
+      </span>
+    </div>
+  </body>
+
+  <script src="./main.js"></script>
+</html>
