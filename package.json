@@ -7,7 +7,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "start-test-server": "yarn build && node server.cjs",
+    "dev": "vite",
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "generate:openapi": "openapi-generator-cli generate -i openapi.yaml -g typescript-fetch --skip-validate-spec -o ./src/api -c openapi-generator-config.json",
     "express": "node ./src/server/index.cjs",
@@ -36,13 +36,13 @@
     "globals": "^15.2.0",
     "jsdom": "^24.0.0",
     "morgan": "^1.10.0",
-    "node-static": "^0.7.11",
     "prettier": "^3.2.5",
     "rollup": "^4.14.1",
     "rollup-plugin-execute": "^1.1.1",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.8.0",
+    "vite": "^5.2.11",
     "vitest": "^1.4.0"
   }
 }
