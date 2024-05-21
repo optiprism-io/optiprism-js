@@ -2,7 +2,7 @@ import { ConsolaInstance } from 'consola'
 import { Configuration, DefaultApi } from '../api'
 import { sendBeaconApi } from './sendBeaconApi'
 import { Env } from '../../env'
-import { LoggerMiddleware } from './middlewares'
+import { LoggerMiddleware, RemoveEmptyMiddleware } from './middlewares'
 
 export class ApiClient {
   config: Configuration
@@ -12,7 +12,7 @@ export class ApiClient {
     this.config = new Configuration({
       fetchApi: sendBeaconApi,
       basePath: Env.basePath,
-      middleware: [new LoggerMiddleware(logger)],
+      middleware: [new RemoveEmptyMiddleware(), new LoggerMiddleware(logger)],
     })
 
     this.tracking = new DefaultApi(this.config)
