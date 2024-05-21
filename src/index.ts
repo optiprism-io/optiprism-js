@@ -12,6 +12,7 @@ import { Env } from '../env'
 import { User } from './modules/user'
 import { Group } from './modules/group'
 import { ANONYMOUS_ID_KEY, EVENT_NAME_CLICK, EVENT_NAME_PAGE } from '@/constants'
+import { LogLevelName } from '@/utils/logLevel'
 
 export class OptiprismBrowser {
   readonly __logger: ConsolaInstance
@@ -30,15 +31,15 @@ export class OptiprismBrowser {
 
   configure(config: Config): void {
     this.config = Object.assign(this.config, config)
-    this.__logger.info('this.logger.level', this.__logger.level)
+    this.__logger.info('Log Level:', LogLevelName[this.__logger.level])
 
     if (!this.config.token) {
-      this.__logger.error('token is required')
+      this.__logger.error('Token is required')
       return
     }
 
-    this.user = new User(this.__apiClient, this.config.token)
-    this.group = new Group(this.__apiClient, this.config.token)
+    this.user = new User(this.__apiClient, this.__logger, this.config.token)
+    this.group = new Group(this.__apiClient, this.__logger, this.config.token)
 
     this.initAnonymousId()
 
@@ -47,6 +48,7 @@ export class OptiprismBrowser {
   }
 
   async track(event: TrackEventRequest['event'], properties?: TrackEventRequest['properties']) {
+    this.__logger.verbose('Track Event:', event, properties)
     const context = new Context()
 
     await this.__apiClient.tracking.trackEvent(this.config.token, {
@@ -83,6 +85,7 @@ export class OptiprismBrowser {
   }
 
   private enableAutoTrack() {
+    this.__logger.debug('Auto track enabled')
     this.trackPageLoad()
     this.trackElementsClick()
   }
