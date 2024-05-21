@@ -26,7 +26,7 @@ describe('OptiPrism class', () => {
     })
 
     expect(optiprism.__logger._lastLog.object?.type).toEqual('error')
-    expect(optiprism.__logger._lastLog.object?.args[0]).toEqual('token is required')
+    expect(optiprism.__logger._lastLog.object?.args[0]).toEqual('Token is required')
   })
 
   it('should call sendBeacon when track is called', async () => {
