@@ -7,7 +7,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "yarn build && vite",
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "generate:openapi": "openapi-generator-cli generate -i openapi.yaml -g typescript-fetch --skip-validate-spec -o ./src/api -c openapi-generator-config.json",
     "express": "node ./src/server/index.cjs",
