@@ -1,9 +1,11 @@
-import { ApiClient } from '../api-client/apiClient'
-import { Context } from './context'
-import { IdentifyEventRequest } from '../api'
+import { ConsolaInstance } from 'consola'
+
 import { GROUP_ID_KEY } from '@/constants'
 import { LocalStorage } from '@/modules/localStorage'
-import { ConsolaInstance } from 'consola'
+
+import { IdentifyEventRequest } from '../api'
+import { ApiClient } from '../api-client/apiClient'
+import { Context } from './context'
 
 export class Group {
   private readonly __apiClient: ApiClient
