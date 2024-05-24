@@ -1,5 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { faker } from '@faker-js/faker'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { OptiprismBrowser } from '@/index'
 import { LocalStorage } from '@/modules/localStorage'
 
