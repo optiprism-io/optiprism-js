@@ -16,4 +16,8 @@ export class LocalStorage {
       return existingValue
     }
   }
+
+  static remove(key: string): void {
+    window.localStorage.removeItem(key)
+  }
 }
