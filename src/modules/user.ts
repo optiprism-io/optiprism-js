@@ -35,4 +35,9 @@ export class User {
       properties,
     })
   }
+
+  reset() {
+    this.userId = undefined
+    LocalStorage.remove(USER_ID_KEY)
+  }
 }
