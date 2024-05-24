@@ -1,4 +1,5 @@
 import { expect, it } from 'vitest'
+
 import { cleanEmptyValues } from '@/utils/cleanEmptyValues'
 
 it('function cleanEmptyValues should remove values: null, undefined, [], {}, ""', () => {
