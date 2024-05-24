@@ -1,18 +1,20 @@
 import { ConsolaInstance, createConsola as createLogger } from 'consola'
-import { getGlobalScope } from './utils/globalScope'
-import { UUID } from './utils/uuid'
-import { PageProperties } from './modules/pageProperties'
-import { ElementProperties } from './modules/elementProperties'
-import { Context } from './modules/context'
-import { LocalStorage } from './modules/localStorage'
-import { ApiClient } from './api-client/apiClient'
-import { TrackEventRequest } from './api'
-import { Config, OptiConfig } from './modules/config'
-import { Env } from '../env'
-import { User } from './modules/user'
-import { Group } from './modules/group'
+
 import { ANONYMOUS_ID_KEY, EVENT_NAME_CLICK, EVENT_NAME_PAGE } from '@/constants'
 import { LogLevelName } from '@/utils/logLevel'
+
+import { Env } from '../env'
+import { TrackEventRequest } from './api'
+import { ApiClient } from './api-client/apiClient'
+import { Config, OptiConfig } from './modules/config'
+import { Context } from './modules/context'
+import { ElementProperties } from './modules/elementProperties'
+import { Group } from './modules/group'
+import { LocalStorage } from './modules/localStorage'
+import { PageProperties } from './modules/pageProperties'
+import { User } from './modules/user'
+import { getGlobalScope } from './utils/globalScope'
+import { UUID } from './utils/uuid'
 
 export class OptiprismBrowser {
   readonly __logger: ConsolaInstance
