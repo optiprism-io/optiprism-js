@@ -35,4 +35,9 @@ export class Group {
       properties,
     })
   }
+
+  reset() {
+    this.groups = {}
+    LocalStorage.remove(GROUP_ID_KEY)
+  }
 }
