@@ -1,8 +1,9 @@
 import { ConsolaInstance } from 'consola'
-import { Configuration, DefaultApi } from '../api'
-import { sendBeaconApi } from './sendBeaconApi'
+
 import { Env } from '../../env'
+import { Configuration, DefaultApi } from '../api'
 import { LoggerMiddleware, RemoveEmptyMiddleware } from './middlewares'
+import { sendBeaconApi } from './sendBeaconApi'
 
 export class ApiClient {
   config: Configuration
