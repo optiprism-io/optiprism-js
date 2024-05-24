@@ -63,6 +63,13 @@ export class OptiprismBrowser {
     })
   }
 
+  reset() {
+    this.__logger.verbose('Reset')
+    this.user?.reset()
+    this.group?.reset()
+    LocalStorage.remove(ANONYMOUS_ID_KEY)
+  }
+
   private trackPageLoad() {
     window.onload = () => {
       const properties = new PageProperties()
