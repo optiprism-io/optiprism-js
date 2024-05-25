@@ -1,8 +1,7 @@
 import { ConsolaInstance } from 'consola'
 
+import { ErrorContext, Middleware, RequestContext } from '@/api'
 import { cleanEmptyValues } from '@/utils/cleanEmptyValues'
-
-import { ErrorContext, Middleware, RequestContext } from '../api'
 
 export class LoggerMiddleware implements Middleware {
   logger: ConsolaInstance

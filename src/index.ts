@@ -1,9 +1,9 @@
 import { ConsolaInstance, createConsola as createLogger } from 'consola'
 
+import { Env } from '@/../env'
 import { ANONYMOUS_ID_KEY, EVENT_NAME_CLICK, EVENT_NAME_PAGE } from '@/constants'
 import { LogLevelName } from '@/utils/logLevel'
 
-import { Env } from '../env'
 import { TrackEventRequest } from './api'
 import { ApiClient } from './api-client/apiClient'
 import { Config, OptiConfig } from './modules/config'
