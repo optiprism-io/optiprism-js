@@ -2,13 +2,14 @@ import pluginJs from '@eslint/js'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
-export default [
+export default tseslint.config(
   {
     ignores: ['src/server/', 'src/api/', 'src/tests/'],
   },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+
   {
     rules: {
       'no-restricted-imports': [
@@ -23,5 +24,5 @@ export default [
         },
       ],
     },
-  },
-]
+  }
+)
