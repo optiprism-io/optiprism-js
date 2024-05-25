@@ -1,10 +1,10 @@
 import { ConsolaInstance } from 'consola'
 
+import { IdentifyEventRequest } from '@/api'
+import { ApiClient } from '@/api-client/apiClient'
 import { GROUP_ID_KEY } from '@/constants'
 import { LocalStorage } from '@/modules/localStorage'
 
-import { IdentifyEventRequest } from '../api'
-import { ApiClient } from '../api-client/apiClient'
 import { Context } from './context'
 
 export class Group {

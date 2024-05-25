@@ -1,7 +1,7 @@
+import { Context as IContext } from '@/api'
 import { UTM_CONTENT, UTM_MEDIUM, UTM_NAME, UTM_SOURCE, UTM_TERM } from '@/constants'
 
-import { name, version } from '../../package.json'
-import { Context as IContext } from '../api'
+import { name, version } from './../../package.json'
 
 export class Context implements IContext {
   library?: IContext['library']
