@@ -2,6 +2,7 @@ import { ConsolaInstance, createConsola as createLogger } from 'consola'
 
 import { Env } from '@/../env'
 import { ANONYMOUS_ID_KEY, EVENT_NAME_CLICK, EVENT_NAME_PAGE } from '@/constants'
+import { SuperProps, SuperPropsData } from '@/modules/superProps'
 import { LogLevelName } from '@/utils/logLevel'
 
 import { TrackEventRequest } from './api'
@@ -53,14 +54,21 @@ export class OptiprismBrowser {
     this.__logger.verbose('Track Event:', event, properties)
     const context = new Context()
 
+    const allProps = Object.assign(SuperProps.get(), properties)
+
     await this.__apiClient.tracking.trackEvent(this.config.token, {
       anonymousId: this.user?.userId ? undefined : this.config.anonymousId,
       context,
       event,
-      properties,
+      properties: allProps,
       userId: this.user?.userId,
       groups: this.group?.groups,
     })
+  }
+
+  register(superProps: SuperPropsData) {
+    this.__logger.debug('Register:', superProps)
+    SuperProps.set(superProps)
   }
 
   reset() {
