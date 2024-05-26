@@ -10,8 +10,8 @@ export interface SuperPropsData {
 }
 
 export class SuperProps {
-  static get() {
-    return LocalStorage.get(SUPER_PROPERTIES_KEY) || {}
+  static get(): SuperPropsData {
+    return (LocalStorage.get(SUPER_PROPERTIES_KEY) as SuperPropsData | null) || {}
   }
 
   static set(data: SuperPropsData, options: Options = { overwrite: true }) {
@@ -22,6 +22,12 @@ export class SuperProps {
       ? Object.assign(savedProps, clonedData)
       : Object.assign(clonedData, savedProps)
 
+    LocalStorage.set(SUPER_PROPERTIES_KEY, props)
+  }
+
+  static remove(key: string) {
+    const props = this.get()
+    if (key in props) delete props[key]
     LocalStorage.set(SUPER_PROPERTIES_KEY, props)
   }
 
