@@ -76,6 +76,11 @@ export class OptiprismBrowser {
     SuperProps.set(superProps, { overwrite: false })
   }
 
+  unregister(key: string) {
+    this.__logger.debug('Unregister:', key)
+    SuperProps.remove(key)
+  }
+
   reset() {
     this.__logger.verbose('Reset')
     this.user?.reset()
