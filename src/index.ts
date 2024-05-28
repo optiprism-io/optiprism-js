@@ -3,7 +3,7 @@ import { ConsolaInstance, createConsola as createLogger } from 'consola'
 import { Env } from '@/../env'
 import { ANONYMOUS_ID_KEY, EVENT_NAME_CLICK, EVENT_NAME_PAGE } from '@/constants'
 import { SuperProps, SuperPropsData } from '@/modules/superProps'
-import { LogLevelName } from '@/utils/logLevel'
+import { LogLevel, LogLevelName } from '@/utils/logLevel'
 
 import { TrackEventRequest } from './api'
 import { ApiClient } from './api-client/apiClient'
@@ -17,6 +17,10 @@ import { User } from './modules/user'
 import { getGlobalScope } from './utils/globalScope'
 import { UUID } from './utils/uuid'
 
+interface Options {
+  loggerLevel?: LogLevel
+}
+
 export class OptiprismBrowser {
   readonly __logger: ConsolaInstance
   readonly __apiClient: ApiClient
@@ -24,9 +28,9 @@ export class OptiprismBrowser {
   user?: User
   group?: Group
 
-  constructor() {
+  constructor({ loggerLevel }: Options = { loggerLevel: Env.logLevel }) {
     this.__logger = createLogger({
-      level: Env.logLevel,
+      level: loggerLevel,
     })
     this.__apiClient = new ApiClient(this.__logger)
     this.config = new OptiConfig()
