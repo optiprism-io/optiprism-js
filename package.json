@@ -12,6 +12,7 @@
     "generate:openapi": "openapi-generator-cli generate -i openapi.yaml -g typescript-fetch --skip-validate-spec -o ./src/api -c openapi-generator-config.json",
     "express": "node ./src/server/index.cjs",
     "test:unit": "vitest ./src/tests/unit",
+    "test:unit-coverage": "yarn test:unit --coverage",
     "test:e2e": "playwright test",
     "fmt": "prettier ./src --write",
     "lint": "eslint ./src",

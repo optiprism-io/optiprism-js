@@ -4,7 +4,7 @@ import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   {
-    ignores: ['src/server/', 'src/api/', 'src/tests/'],
+    ignores: ['src/server/', 'src/api/', 'src/tests/', '**/coverage/**'],
   },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
