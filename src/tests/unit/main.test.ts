@@ -3,12 +3,13 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { OptiprismBrowser } from '@/index'
 import { LocalStorage } from '@/modules/localStorage'
+import { LogLevel } from '@/utils/logLevel'
 
 describe('OptiPrism class', () => {
   let optiprism: OptiprismBrowser
 
   beforeEach(() => {
-    optiprism = new OptiprismBrowser()
+    optiprism = new OptiprismBrowser({ loggerLevel: LogLevel.Warnings })
   })
 
   it('should have token in own config after initializing', () => {
