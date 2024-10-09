@@ -23,7 +23,7 @@ interface Options {
 
 export class OptiprismBrowser {
   readonly __logger: ConsolaInstance
-  readonly __apiClient: ApiClient
+  apiClient: ApiClient
   config: Config
   user?: User
   group?: Group
@@ -32,7 +32,7 @@ export class OptiprismBrowser {
     this.__logger = createLogger({
       level: loggerLevel,
     })
-    this.__apiClient = new ApiClient(this.__logger)
+    this.apiClient = new ApiClient(Env.basePath, this.__logger)
     this.config = new OptiConfig()
   }
 
@@ -45,8 +45,14 @@ export class OptiprismBrowser {
       return
     }
 
-    this.user = new User(this.__apiClient, this.__logger, this.config.token)
-    this.group = new Group(this.__apiClient, this.__logger, this.config.token)
+    if (!this.config.serverUrl) {
+      this.__logger.error('Server URL is required')
+      return
+    }
+    this.apiClient = new ApiClient(this.config.serverUrl, this.__logger)
+
+    this.user = new User(this.apiClient, this.__logger, this.config.token)
+    this.group = new Group(this.apiClient, this.__logger, this.config.token)
 
     this.initAnonymousId()
 
@@ -60,7 +66,7 @@ export class OptiprismBrowser {
 
     const allProps = Object.assign(SuperProps.get(), properties)
 
-    await this.__apiClient.tracking.trackEvent(this.config.token, {
+    await this.apiClient.tracking.trackEvent(this.config.token, {
       anonymousId: this.user?.userId ? undefined : this.config.anonymousId,
       context,
       event,

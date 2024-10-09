@@ -6,6 +6,7 @@ if (token) localStorage.setItem(LS_TOKEN_KEY, token)
 
 globalThis.optiprism.configure({
   token,
+  serverUrl: 'https://demdxx.optiprism.io/api',
 })
 
 const setTokenBtn = document.querySelectorAll('[data-set-token]')[0]

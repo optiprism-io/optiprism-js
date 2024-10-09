@@ -7,12 +7,10 @@ import { LogLevel } from '@/utils/logLevel'
 
 describe('OptiPrism class should', () => {
   let optiprism: OptiprismBrowser
-  let apiTrackMock: MockInstance
   const TEST_TOKEN = faker.string.uuid()
 
   beforeEach(() => {
     optiprism = new OptiprismBrowser({ loggerLevel: LogLevel.Warnings })
-    apiTrackMock = vi.spyOn(optiprism.__apiClient.tracking, 'trackEvent')
     global.navigator.sendBeacon = vi.fn(() => true)
     window.localStorage.clear()
   })
@@ -20,6 +18,7 @@ describe('OptiPrism class should', () => {
   it('have token in own config after initializing', () => {
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
     })
 
     expect(optiprism.config).toEqual(expect.objectContaining({ token: TEST_TOKEN }))
@@ -28,6 +27,7 @@ describe('OptiPrism class should', () => {
   it('have log error when token is not exist', () => {
     optiprism.configure({
       token: '',
+      serverUrl: faker.internet.url(),
     })
 
     expect(optiprism.__logger._lastLog.object?.type).toEqual('error')
@@ -37,6 +37,7 @@ describe('OptiPrism class should', () => {
   it('call sendBeacon when track is called', async () => {
     optiprism.configure({
       token: faker.string.uuid(),
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
     await optiprism.track('click')
@@ -47,6 +48,7 @@ describe('OptiPrism class should', () => {
   it('have anonymousId from local storage', () => {
     optiprism.configure({
       token: faker.string.uuid(),
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
 
@@ -56,13 +58,14 @@ describe('OptiPrism class should', () => {
   })
 
   it('call identify method with correct args when method is called for user', async () => {
-    const identifyMock = vi.spyOn(optiprism.__apiClient.tracking, 'identifyEvent')
     const TEST_FULL_NAME = faker.person.fullName()
-
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
+    const identifyMock = vi.spyOn(optiprism.apiClient.tracking, 'identifyEvent')
+
     await optiprism.user?.identify(TEST_FULL_NAME)
 
     expect(identifyMock).toHaveBeenCalledTimes(1)
@@ -71,14 +74,15 @@ describe('OptiPrism class should', () => {
   })
 
   it('call identify method with correct args when method is called for group', async () => {
-    const apiIdentifyMockInstance = vi.spyOn(optiprism.__apiClient.tracking, 'identifyEvent')
     const TEST_COMPANY_NAME = faker.company.name()
     const TEST_FULL_NAME = faker.person.fullName()
-
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
+    const apiIdentifyMockInstance = vi.spyOn(optiprism.apiClient.tracking, 'identifyEvent')
+
     await optiprism.group?.identify(TEST_COMPANY_NAME, TEST_FULL_NAME)
 
     expect(apiIdentifyMockInstance).toHaveBeenCalledTimes(1)
@@ -88,11 +92,13 @@ describe('OptiPrism class should', () => {
 
   it('call track with correct args when user is identified', async () => {
     const TEST_FULL_NAME = faker.person.fullName()
-
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
+    const apiTrackMock = vi.spyOn(optiprism.apiClient.tracking, 'trackEvent')
+
     await optiprism.user?.identify(TEST_FULL_NAME)
     await optiprism.track('click')
 
@@ -104,11 +110,13 @@ describe('OptiPrism class should', () => {
     const TEST_COMPANY_NAME_2 = faker.company.name()
     const TEST_FULL_NAME_1 = faker.person.fullName()
     const TEST_FULL_NAME_2 = faker.person.fullName()
-
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
+    const apiTrackMock = vi.spyOn(optiprism.apiClient.tracking, 'trackEvent')
+
     await optiprism.group?.identify(TEST_COMPANY_NAME_1, TEST_FULL_NAME_1)
     await optiprism.group?.identify(TEST_COMPANY_NAME_2, TEST_FULL_NAME_2)
     await optiprism.track('click')
@@ -123,11 +131,13 @@ describe('OptiPrism class should', () => {
     const TEST_SUPER_PROPS_KEY = 'location'
     const TEST_SUPER_PROP_VALUE = faker.location.country()
     const TEST_SUPER_PROPS = { [TEST_SUPER_PROPS_KEY]: TEST_SUPER_PROP_VALUE }
-
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
+    const apiTrackMock = vi.spyOn(optiprism.apiClient.tracking, 'trackEvent')
+
     optiprism.register(TEST_SUPER_PROPS)
     await optiprism.track('click')
 
@@ -138,11 +148,13 @@ describe('OptiPrism class should', () => {
     const TEST_SUPER_PROPS_KEY = 'location'
     const TEST_SUPER_PROP_VALUE = faker.location.country()
     const TEST_SUPER_PROPS = { [TEST_SUPER_PROPS_KEY]: TEST_SUPER_PROP_VALUE }
-
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
+    const apiTrackMock = vi.spyOn(optiprism.apiClient.tracking, 'trackEvent')
+
     optiprism.register_once(TEST_SUPER_PROPS)
     await optiprism.track('click')
 
@@ -155,11 +167,13 @@ describe('OptiPrism class should', () => {
     const TEST_SUPER_PROP_VALUE_2 = faker.location.city()
     const TEST_SUPER_PROPS = { [TEST_SUPER_PROPS_KEY]: TEST_SUPER_PROP_VALUE }
     const TEST_SUPER_PROPS_2 = { [TEST_SUPER_PROPS_KEY]: TEST_SUPER_PROP_VALUE_2 }
-
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
+    const apiTrackMock = vi.spyOn(optiprism.apiClient.tracking, 'trackEvent')
+
     optiprism.register_once(TEST_SUPER_PROPS)
     optiprism.register_once(TEST_SUPER_PROPS_2)
     await optiprism.track('click')
@@ -174,11 +188,13 @@ describe('OptiPrism class should', () => {
     const TEST_SUPER_PROP_VALUE_2 = faker.location.city()
     const TEST_SUPER_PROPS = { [TEST_SUPER_PROPS_KEY]: TEST_SUPER_PROP_VALUE }
     const TEST_SUPER_PROPS_2 = { [TEST_SUPER_PROPS_KEY]: TEST_SUPER_PROP_VALUE_2 }
-
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
+    const apiTrackMock = vi.spyOn(optiprism.apiClient.tracking, 'trackEvent')
+
     optiprism.register(TEST_SUPER_PROPS)
     optiprism.register(TEST_SUPER_PROPS_2)
     await optiprism.track('click')
@@ -194,11 +210,13 @@ describe('OptiPrism class should', () => {
     const TEST_SUPER_PROP_VALUE_2 = faker.location.city()
     const TEST_SUPER_PROPS = { [TEST_SUPER_PROPS_KEY]: TEST_SUPER_PROP_VALUE }
     const TEST_SUPER_PROPS_2 = { [TEST_SUPER_PROPS_KEY_2]: TEST_SUPER_PROP_VALUE_2 }
-
     optiprism.configure({
       token: TEST_TOKEN,
+      serverUrl: faker.internet.url(),
       autotrack: false,
     })
+    const apiTrackMock: MockInstance = vi.spyOn(optiprism.apiClient.tracking, 'trackEvent')
+
     optiprism.register(TEST_SUPER_PROPS)
     optiprism.register_once(TEST_SUPER_PROPS_2)
     optiprism.unregister(TEST_SUPER_PROPS_KEY)
